@@ -41,6 +41,8 @@ class CourseManager extends React.Component {
                         course
                     ]
                 })))
+        document.getElementsByClassName('wbdv-title-fld')[0].value = ''
+
     }
 
     updateCourse = (course) => {

@@ -66,7 +66,7 @@ const CourseRow = (
             <td>
                 <div className="form-row float-right">
                     <div className="col-auto">
-                        <i onClick={() => deleteCourse(course)} className="fas fa-times wbdv-color-danger"></i>
+                        {editing && <i onClick={() => deleteCourse(course)} className="fas fa-times wbdv-color-danger"></i>}
                     </div>
                     <div className="col-auto">
                         {editing && <i onClick={() => saveCourse()} className="fas fa-check wbdv-color-success"></i>}

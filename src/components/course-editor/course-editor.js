@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import ModuleList from "./course-modulelist";
-import LessonsTabs from "./course-lessontabs";
+import ModuleList from "./course-module-list";
+import LessonsTabs from "./course-lesson-tabs";
 import TopicPills from "./course-topic-pills";
 
 export default class CourseEditor extends React.Component {
