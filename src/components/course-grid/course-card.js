@@ -39,7 +39,7 @@ const CourseCard = (
                                    <i onClick={() => saveTitle()} className="fas fa-check fa-2x wbdv-color-success"></i>
                                </div>
                                <div className="col">
-                                   <i onClick={() => ( setEditing(false))} className="fas fa-times fa-2x wbdv-color-danger"></i>
+                                   <i onClick={() => (deleteCourse(course), setEditing(false))} className="fas fa-times fa-2x wbdv-color-danger"></i>
                                </div>
                            </div>
                            <div className="wbdv-bottom">
@@ -50,12 +50,6 @@ const CourseCard = (
                            </div>
                        </div>
 
-                    }
-                    {
-                        !editing &&
-                        <div className="wbdv-top-right">
-                            <i onClick={() => (deleteCourse(course), setEditing(false))} className="fas fa-trash wbdv-color-danger"></i>
-                        </div>
                     }
 
                 </div>
