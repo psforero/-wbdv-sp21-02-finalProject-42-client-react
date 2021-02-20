@@ -1,5 +1,5 @@
 import React from 'react'
-import ModuleListItem from "./course-modulelistitem"
+import ModuleListItem from "./course-module-list-item"
 
 export default class ModuleList extends React.Component {
     constructor(props){
