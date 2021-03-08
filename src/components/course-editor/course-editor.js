@@ -1,75 +1,115 @@
-import React, {useState} from 'react'
-import ModuleList from "./course-module-list";
-import LessonsTabs from "./course-lesson-tabs";
-import TopicPills from "./course-topic-pills";
+import React, {useEffect, useState} from 'react'
+import {Link, Route, useParams} from "react-router-dom";
+import moduleReducer from "../../reducers/modules-reducer";
+import lessonReducer from "../../reducers/lesson-reducer";
+import topicReducer from "../../reducers/topic-reducer";
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux";
+import ModuleList from "./module-list";
+import LessonTabs from "./lesson-tabs";
+import TopicPills from "./topic-pills";
+import {findCourseById} from "../../services/course-service";
+import {findModule} from "../../services/module-service";
 
-export default class CourseEditor extends React.Component {
-    constructor(props) {
-        super(props)
+const reducer = combineReducers({
+    moduleReducer: moduleReducer,
+    lessonReducer: lessonReducer,
+    topicReducer: topicReducer
+})
+
+const store = createStore(reducer)
+const CourseEditor = (
+    {
+        course,
+        module= "No Module selected",
+        lesson = "No Lesson selected",
+        topic ="No Topic selected"
     }
+    ) => {
 
-    editing = (obj) => {
-        let editing = false
-        if (obj.editing == 'editing') {
-            editing = true
+    const {courseId, moduleId, lessonId, topicId, layout} = useParams();
+    const [courseTitle, setCourseTitle] = useState(course)
+    const [moduleTitle, setModuleTitle] = useState(module);
+    const [lessonTitle, setLessonTitle] = useState(lesson);
+    const [topicTitle, setTopicTitle] = useState(lesson);
+    useEffect(() => {
+        if(courseId !== "undefined" && typeof courseId !== "undefined") {
+            findCourseById(courseId)
+                .then(course => getCourseTitle(course))
         }
-        return(editing)
+        if(moduleId !== "undefined" && typeof moduleId !== "undefined") {
+            findModule(moduleId)
+                .then(module => getModuleTitle(module))
+        }
+        if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
+            findModule(lessonId)
+                .then(lesson => getLessonTitle(lesson))
+        }
+        if(topicId !== "undefined" && typeof topicId !== "undefined") {
+            findModule(topicId)
+                .then(topic => getTopicTitle(topic))
+        }
+    }, [courseId, moduleId, lessonId, topicId])
+
+    const getCourseTitle = (course) => {
+        setCourseTitle(course.title)
     }
 
-    state = {
-        lessons: [
-            {title: 'Unselected Lesson 1 ', id:123},
-            {title: 'Selected Lesson 2 ', id:234, status: 'active'},
-            {title: 'Lesson 3 ', id:345},
-            {title: 'Editing Lesson 4 ', id:456, editing: 'editing'},
-            {title: 'New Lesson ', id:567}
-        ],
-        topics: [
-            {title: 'Unselected Topic 1 ', id:123},
-            {title: 'Selected Topic 2 ', id:234, status: 'active'},
-            {title: 'Topic 3 ', id:345},
-            {title: 'Editing Topic 4 ', id:456, editing: 'editing'},
-            {title: 'New Topic ', id:567}
-        ]
+    const getModuleTitle = (module) => {
+        setModuleTitle(module.title)
     }
 
-    render() {
-        return(
-            <div className="container-fluid">
-                <div className="form-row justify-content-start">
-                    <div className="col-auto align-self-center">
-                        <i onClick={() => this.props.history.goBack()}
-                           className="fas fa-times fa-2x wbdv-color-primary"></i>
-                    </div>
-                    <div className="col align-self-center">
-                        <h3 className="align-middle">
-                            WebDev Selected Course
-                        </h3>
-                    </div>
-                </div>
+    const getLessonTitle = (lesson) => {
+        setLessonTitle(lesson.title)
+    }
 
-                <div className="form-row">
-                    <div className="col-3">
-                        <ModuleList
-                            editing={this.editing}
-                        />
-                    </div>
-                    <div className="col-9">
-                        <LessonsTabs
-                            lessons={this.state.lessons}
-                            editing={this.editing}
-                        />
+    const getTopicTitle = (topic) => {
+        setTopicTitle(topic.title)
+    }
 
-                        <TopicPills
-                            topics={this.state.topics}
-                            editing={this.editing}
-                        />
+    return (
+        <Provider store={store}>
+            <div>
+                <h2>
+                    <Link className="fas fa-times wbdv-tab" to={`/courses/${layout}`}>
+                    </Link>
+                    Course Editor for: {courseTitle}
+                </h2>
+                <div className="row">
+                    <div className="col-4">
+                        <ModuleList layout={layout}/>
+                    </div>
+                    <div className="col-8">
+                        <Route path={[
+                            "/courses/:layout/edit/:courseId/:moduleId",
+                            "/courses/:layout/edit/:courseId/:moduleId/:lessonId",
+                            "/courses/:layout/edit/:courseId/:moduleId/:lessonId/:topicId"]}
+                               exact={true}>
+                            <LessonTabs
+                                layout={layout}
+                                moduleTitle={moduleTitle}/>
+                        </Route>
+                        <Route path={[
+                            "/courses/:layout/edit/:courseId/:moduleId/:lessonId",
+                            "/courses/:layout/edit/:courseId/:moduleId/:lessonId/:topicId"]}
+                               exact={true}>
+                            <TopicPills
+                                layout={layout}
+                                lessonTitle={lessonTitle}/>
+                        </Route>
+                        <Route path={[
+                            "/courses/:layout/edit/:courseId/:moduleId/:lessonId/:topicId"]}
+                               exact={true}>
+                            <h4>Editing Topic: {topicTitle}</h4>
+                        </Route>
+
                     </div>
                 </div>
             </div>
-        )
-    }
-}
+        </Provider>)}
+
+
+export default CourseEditor
 
 
 

@@ -32,7 +32,6 @@ const CourseCard = (
                     <img src={course.image} className="card-img-top embed-responsive-item" alt="..."/>
                     {
                         editing &&
-
                        <div>
                            <div className="row wbdv-top-right">
                                <div className="col">
@@ -80,7 +79,7 @@ const CourseCard = (
                     </div>
                     <div className="form-row mt-auto">
                         <div className="col-auto float-left">
-                            <Link to="/courses/editor" className="btn btn-primary">
+                            <Link to={`/courses/grid/edit/${course._id}`} className="btn btn-primary">
                                 {course.title}
                             </Link>
                         </div>

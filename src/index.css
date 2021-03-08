@@ -33,7 +33,7 @@ code {
 }
 
 .wbdv-color-white {
-  color: white;
+  color: white !important;
 }
 
 h1{
@@ -71,4 +71,12 @@ h1{
   position: fixed;
   bottom: 8px;
   right: 8px;
+}
+
+.list-group-item.active a {
+  color: white;
+}
+
+.nav-link.active a {
+  color: black;
 }
