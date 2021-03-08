@@ -15,6 +15,10 @@ export const findTopicsForLesson = (lessonId) =>
     fetch(`${LESSONS_URL}/${lessonId}/topics`)
         .then(response => response.json())
 
+export const findTopic = (topicId) =>
+    fetch(`${TOPICS_URL}/${topicId}`)
+        .then(response => response.json())
+
 export const deleteTopic = (topicId) =>
     fetch(`${TOPICS_URL}/${topicId}`, {
         method: "DELETE"

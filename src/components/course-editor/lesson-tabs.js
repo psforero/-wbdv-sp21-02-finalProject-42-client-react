@@ -53,7 +53,7 @@ const dtpm = (dispatch) => ({
         console.log(moduleId)
         lessonService.findLessonsForModule(moduleId)
             .then(lessons => dispatch({
-                type: "FIND_LESSONS",
+                type: "FIND_LESSONS_FOR_MODULE",
                 lessons
             }))
     },

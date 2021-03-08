@@ -48,7 +48,7 @@ const dtpm = (dispatch) => ({
     findTopicsForLesson: (lessonId) => {
         topicService.findTopicsForLesson(lessonId)
             .then(topics => dispatch({
-                type: "FIND_TOPICS",
+                type: "FIND_TOPICS_FOR_LESSON",
                 topics
             }))
     },

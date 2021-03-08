@@ -12,10 +12,20 @@ const topicReducer = (state=initialState, action) => {
                     action.topic
                 ]
             }
-        case "FIND_TOPICS":
+        case "FIND_TOPICS_FOR_LESSON":
             return {
                 ...state,
                 topics: action.topics
+            }
+        case "UPDATE_TOPIC":
+            return {
+                topics: state.topics.map(l => {
+                    if(l._id === action.topic._id) {
+                        return action.topic
+                    } else {
+                        return l
+                    }
+                })
             }
         case "DELETE_TOPIC":
             const newState1 = {
@@ -28,16 +38,6 @@ const topicReducer = (state=initialState, action) => {
                 })
             }
             return newState1
-        case "UPDATE_TOPIC":
-            return {
-                topics: state.topics.map(l => {
-                    if(l._id === action.topic._id) {
-                        return action.topic
-                    } else {
-                        return l
-                    }
-                })
-            }
         default:
             return state
     }
