@@ -1,9 +1,13 @@
 import React from 'react'
 import CourseCard from "./course-card";
 import {Link} from "react-router-dom";
-import CourseRow from "../course-table/course-row";
 
-const CourseGrid = ({courses, deleteCourse, updateCourse}) =>
+const CourseGrid = (
+    {
+        courses,
+        deleteCourse,
+        updateCourse
+    }) =>
     <div>
         <table className="table">
             <tr>
