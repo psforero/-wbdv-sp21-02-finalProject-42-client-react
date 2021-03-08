@@ -114,7 +114,7 @@ class CourseManager extends React.Component {
                        render={(props) =>
                            <CourseEditor {...props}/>}>
                 </Route>
-                <Route path={["/courses/table", "/courses/grid"]}>
+                <Route path={["/courses/table", "/courses/grid"]} exact={true}>
                     <i onClick={this.addCourse}
                        className="fas fa-plus-circle fa-5x wbdv-color-danger wbdv-bottom-right"></i>
                 </Route>

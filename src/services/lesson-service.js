@@ -15,10 +15,8 @@ export const findLessonsForModule = (moduleId) =>
     fetch(`${MODULES_URL}/${moduleId}/lessons`)
         .then(response => response.json())
 
-export const deleteLesson = (lessonId) =>
-    fetch(`${LESSONS_URL}/${lessonId}`, {
-        method: "DELETE"
-    })
+export const findLesson = (lessonId) =>
+    fetch(`${LESSONS_URL}/${lessonId}`)
         .then(response => response.json())
 
 export const updateLesson = (lessonId, lesson) =>
@@ -28,6 +26,12 @@ export const updateLesson = (lessonId, lesson) =>
         headers: {
             'content-type': 'application/json'
         }
+    })
+        .then(response => response.json())
+
+export const deleteLesson = (lessonId) =>
+    fetch(`${LESSONS_URL}/${lessonId}`, {
+        method: "DELETE"
     })
         .then(response => response.json())
 

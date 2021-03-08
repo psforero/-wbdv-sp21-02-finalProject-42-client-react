@@ -11,6 +11,14 @@ export const createModuleForCourse = (courseId, module) =>
     })
         .then(response => response.json())
 
+export const findModulesForCourse = (courseId) =>
+    fetch(`${COURSES_URL}/${courseId}/modules`)
+        .then(response => response.json())
+
+export const findModule = (moduleId) =>
+    fetch(`${MODULES_URL}/${moduleId}`)
+        .then(response => response.json())
+
 export const updateModule = (moduleId, module) =>
     fetch(`${MODULES_URL}/${moduleId}`, {
         method: "PUT",
@@ -19,14 +27,6 @@ export const updateModule = (moduleId, module) =>
             'content-type': 'application/json'
         }
     })
-        .then(response => response.json())
-
-export const findModulesForCourse = (courseId) =>
-    fetch(`${COURSES_URL}/${courseId}/modules`)
-        .then(response => response.json())
-
-export const findModule = (moduleId) =>
-    fetch(`${MODULES_URL}/${moduleId}`)
         .then(response => response.json())
 
 export const deleteModule = (moduleId) =>

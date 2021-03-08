@@ -10,6 +10,8 @@ import LessonTabs from "./lesson-tabs";
 import TopicPills from "./topic-pills";
 import {findCourseById} from "../../services/course-service";
 import {findModule} from "../../services/module-service";
+import {findLesson} from "../../services/lesson-service";
+import {findTopic} from "../../services/topic-service";
 
 const reducer = combineReducers({
     moduleReducer: moduleReducer,
@@ -42,11 +44,11 @@ const CourseEditor = (
                 .then(module => getModuleTitle(module))
         }
         if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
-            findModule(lessonId)
+            findLesson(lessonId)
                 .then(lesson => getLessonTitle(lesson))
         }
         if(topicId !== "undefined" && typeof topicId !== "undefined") {
-            findModule(topicId)
+            findTopic(topicId)
                 .then(topic => getTopicTitle(topic))
         }
     }, [courseId, moduleId, lessonId, topicId])
