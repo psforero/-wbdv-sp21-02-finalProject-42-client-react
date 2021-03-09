@@ -33,7 +33,7 @@ const CourseEditor = (
     const [courseTitle, setCourseTitle] = useState(course)
     const [moduleTitle, setModuleTitle] = useState(module);
     const [lessonTitle, setLessonTitle] = useState(lesson);
-    const [topicTitle, setTopicTitle] = useState(lesson);
+    const [topicTitle, setTopicTitle] = useState(topic);
     useEffect(() => {
         if(courseId !== "undefined" && typeof courseId !== "undefined") {
             findCourseById(courseId)
