@@ -36,15 +36,16 @@ const EditableItem = (
                 }
                 {
                     editing &&
-                    <div className="form-row">
-                        <div className="col">
+                    <div className="row form-row">
+                        <div className="col-form-label">
                             <input
                                 onChange={(e) =>
                                     setCahedItem({
                                         ...cachedItem,
                                         title: e.target.value
                                     })}
-                                value={cachedItem.title}/>
+                                value={cachedItem.title}
+                            className="form-control"/>
                         </div>
                         <div className="col-form-label">
                             <i onClick={() => {
