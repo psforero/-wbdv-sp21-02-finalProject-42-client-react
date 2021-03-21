@@ -15,30 +15,34 @@ const EditableWidget = (
                 editingWid === widget.id &&
                 <>
                     <div className="col">
-                        <select onChange={(e) =>
-                            setCahedItem({
-                                ...cachedItem,
-                                type: e.target.value
-                            })}
-                                value={cachedItem.type}
-                                className="form-control">
-                            <option>Heading</option>
-                            <option>Paragraph</option>
-                            <option>List</option>
-                            <option>Image</option>
-                            <option>Hyperlink</option>
-                            <option>Video</option>
-                        </select>
+                        <div className="mb-3">
+                            <select onChange={(e) =>
+                                setCahedItem({
+                                    ...cachedItem,
+                                    type: e.target.value
+                                })}
+                                    value={cachedItem.type}
+                                    className="form-control">
+                                <option>Heading</option>
+                                <option>Paragraph</option>
+                                <option>List</option>
+                                <option>Image</option>
+                                <option>Hyperlink</option>
+                                <option>Video</option>
+                            </select>
+                        </div>
                         {
                             cachedItem.type.toUpperCase() === "HEADING" &&
                             <>
-                                <input
-                                    onChange={(e) =>
-                                        setCahedItem({
-                                            ...cachedItem,
-                                            text: e.target.value
-                                        })}
-                                    value={cachedItem.text} className="form-control"/>
+                                <div className="mb-3">
+                                    <input
+                                        onChange={(e) =>
+                                            setCahedItem({
+                                                ...cachedItem,
+                                                text: e.target.value
+                                            })}
+                                        value={cachedItem.text} className="form-control"/>
+                                </div>
                                 <select onChange={(e) =>
                                     setCahedItem({
                                         ...cachedItem,
