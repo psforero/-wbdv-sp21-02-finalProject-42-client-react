@@ -35,7 +35,7 @@ const WidgetList = (
                             type: e.target.value
                         })}
                             value={newWidget.type}
-                            className="col-form-control">
+                            className="form-select">
                         <option>Heading</option>
                         <option>Paragraph</option>
                         <option>List</option>
