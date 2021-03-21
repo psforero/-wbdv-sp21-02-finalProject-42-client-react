@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {connect} from "react-redux";
 import EditableItem from "./editable-item";
 import {useParams} from "react-router-dom";
 import lessonService from '../../services/lesson-service'
-import {findModule} from "../../services/module-service";
 
 const LessonTabs = (
     {
@@ -15,7 +14,7 @@ const LessonTabs = (
         moduleTitle,
         layout
     }) => {
-    const {courseId, moduleId, lessonId} = useParams();
+    const {courseId, moduleId} = useParams();
     useEffect(() => {
         console.log("LOAD LESSONS FOR MODULE: " + moduleId)
         if(moduleId !== "undefined" && typeof moduleId !== "undefined") {

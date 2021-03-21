@@ -8,15 +8,18 @@ import {Provider} from "react-redux";
 import ModuleList from "./module-list";
 import LessonTabs from "./lesson-tabs";
 import TopicPills from "./topic-pills";
+import WidgetList from "./widgets/widget-list";
 import {findCourseById} from "../../services/course-service";
 import {findModule} from "../../services/module-service";
 import {findLesson} from "../../services/lesson-service";
 import {findTopic} from "../../services/topic-service";
+import widgetReducer from "../../reducers/widget-reducer";
 
 const reducer = combineReducers({
     moduleReducer: moduleReducer,
     lessonReducer: lessonReducer,
-    topicReducer: topicReducer
+    topicReducer: topicReducer,
+    widgetReducer: widgetReducer
 })
 
 const store = createStore(reducer)
@@ -103,8 +106,8 @@ const CourseEditor = (
                             "/courses/:layout/edit/:courseId/:moduleId/:lessonId/:topicId"]}
                                exact={true}>
                             <h4>Editing Topic: {topicTitle}</h4>
+                            <WidgetList/>
                         </Route>
-
                     </div>
                 </div>
             </div>

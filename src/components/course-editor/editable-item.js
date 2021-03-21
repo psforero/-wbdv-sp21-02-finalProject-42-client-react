@@ -23,12 +23,12 @@ const EditableItem = (
                 {
                     !editing &&
                     <div className="form-row">
-                        <div className="col-form-label">
+                        <div className='col-form-label'>
                             <Link className={`${(item._id === topicId) ? 'wbdv-color-white' : ''}`} to={to}>
                                 {item.title}{JSON.stringify(active)}
                             </Link>
                         </div>
-                        <div className="col-form-label">
+                        <div className='col col-form-label d-flex justify-content-end'>
                             <a onClick={() => (setEditing(true), setCahedItem(item))}
                                className={`fas fa-pencil-alt ${(item._id === topicId) ? 'wbdv-color-white' : ''}`}></a>
                         </div>
