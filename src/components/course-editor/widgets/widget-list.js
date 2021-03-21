@@ -27,26 +27,24 @@ const WidgetList = (
     }, [topicId])
     return(
         <div>
-            <div className="col-auto d-flex justify-content-end">
-                <div className="row form-row">
-                    <select onChange={(e) =>
-                        setNewWidget({
-                            ...newWidget,
-                            type: e.target.value
-                        })}
-                            value={newWidget.type}
-                            className="form-select">
-                        <option>Heading</option>
-                        <option>Paragraph</option>
-                        <option>List</option>
-                        <option>Image</option>
-                        <option>Hyperlink</option>
-                        <option>Video</option>
-                    </select>
-                    <button onClick={() => createWidgetForTopic(topicId, newWidget)}
-                            className="btn btn-outline-secondary"
-                            type="button">Add</button>
-                </div>
+            <div className="input-group">
+                <select onChange={(e) =>
+                    setNewWidget({
+                        ...newWidget,
+                        type: e.target.value
+                    })}
+                        value={newWidget.type}
+                        className="form-control">
+                    <option>Heading</option>
+                    <option>Paragraph</option>
+                    <option>List</option>
+                    <option>Image</option>
+                    <option>Hyperlink</option>
+                    <option>Video</option>
+                </select>
+                <button onClick={() => createWidgetForTopic(topicId, newWidget)}
+                        className="btn btn-outline-secondary"
+                        type="button">Add</button>
             </div>
             <br/>
             <ul className="list-group">
