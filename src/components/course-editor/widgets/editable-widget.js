@@ -15,24 +15,30 @@ const EditableWidget = (
                 editingWid === widget.id &&
                 <>
                     <div className="col">
-                        <div className="mb-3">
-                            <select onChange={(e) =>
-                                setCahedItem({
-                                    ...cachedItem,
-                                    type: e.target.value
-                                })}
-                                    value={cachedItem.type}
-                                    className="form-control">
-                                <option>Heading</option>
-                                <option>Paragraph</option>
-                                <option>List</option>
-                                <option>Image</option>
-                                <option>Hyperlink</option>
-                                <option>Video</option>
-                            </select>
-                        </div>
                         {
-                            cachedItem.type.toUpperCase() === "HEADING" &&
+                            (cachedItem.type.toUpperCase() !== "IMAGE" &&
+                            cachedItem.type.toUpperCase() !== "LIST") &&
+                            <div className="mb-3">
+                                <select onChange={(e) =>
+                                    setCahedItem({
+                                        ...cachedItem,
+                                        type: e.target.value
+                                    })}
+                                        value={cachedItem.type}
+                                        className="form-control">
+                                    <option>Heading</option>
+                                    <option>Paragraph</option>
+                                    <option>List</option>
+                                    <option>Image</option>
+                                    <option>Hyperlink</option>
+                                    <option>Video</option>
+                                </select>
+                            </div>
+                        }
+                        {
+                            (cachedItem.type.toUpperCase() !== "PARAGRAPH" &&
+                            cachedItem.type.toUpperCase() !== "LIST" &&
+                            cachedItem.type.toUpperCase() !== "IMAGE") &&
                             <>
                                 <div className="mb-3">
                                     <input
@@ -60,15 +66,58 @@ const EditableWidget = (
                             </>
                         }
                         {
-                            cachedItem.type.toUpperCase() === "PARAGRAPH" &&
+                            cachedItem.type.toUpperCase() === "LIST" &&
                             <>
-                                <textarea  onChange={(e) =>
+                                <input type="checkbox"
+                                       onChange={(e) =>
+                                           setCahedItem({
+                                               ...cachedItem,
+                                               ordered: e.target.checked
+                                           })}
+                                       defaultChecked={cachedItem.ordered}
+                                /> Ordered
+                                <br/>
+                                Item List
+                            </>
+                        }
+                        {
+                            cachedItem.type.toUpperCase() === "IMAGE" &&
+                            <>
+                                Image URL
+                                <input onChange={(e) =>
                                     setCahedItem({
                                         ...cachedItem,
-                                        text: e.target.value
+                                        src: e.target.value
                                     })}
-                                    value={cachedItem.text} className="form-control"></textarea>
+                                    defaultValue={widget.src}
+                                    className="form-control"/>
+                                Image Width
+                                <input onChange={(e) =>
+                                    setCahedItem({
+                                        ...cachedItem,
+                                        width: e.target.value
+                                    })}
+                                    defaultValue={widget.width}
+                                    className="form-control"/>
+                                Image Height
+                                <input onChange={(e) =>
+                                    setCahedItem({
+                                        ...cachedItem,
+                                        height: e.target.value
+                                    })}
+                                    defaultValue={widget.height}
+                                    className="form-control"/>
                             </>
+                        }
+                        {
+                            (cachedItem.type.toUpperCase() === "PARAGRAPH" ||
+                                cachedItem.type.toUpperCase() === "LIST") &&
+                            <textarea  onChange={(e) =>
+                                setCahedItem({
+                                    ...cachedItem,
+                                    text: e.target.value
+                                })}
+                                       value={cachedItem.text} className="form-control"></textarea>
                         }
                     </div>
                     <div className="col-auto">
