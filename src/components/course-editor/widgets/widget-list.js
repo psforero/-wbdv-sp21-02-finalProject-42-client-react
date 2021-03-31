@@ -4,6 +4,8 @@ import ParagraphWidget from "./paragraph-widget";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import widgetService  from '../../../services/widget-service'
+import ListWidget from "./list-widget";
+import ImageWidget from "./image-widget";
 
 const WidgetList = (
     {
@@ -15,7 +17,12 @@ const WidgetList = (
         defaultWidget = {
             type: "HEADING",
             size: 1,
-            text: "New Widget"}
+            text: "New Widget",
+            ordered: 1,
+            src: 'https://lh3.googleusercontent.com/EbXw8rOdYxOGdXEFjgNP8lh-YAuUxwhOAe2jhrz3sgqvPeMac6a6tHvT35V6YMbyNvkZL4R_a2hcYBrtfUhLvhf-N2X3OB9cvH4uMw=w1064-v0',
+            width: 100,
+            height: 100
+        }
     }) => {
     const {topicId} = useParams();
     const [editingWidget, setEditingWidget] = useState({});
@@ -52,7 +59,9 @@ const WidgetList = (
                     widgets.map(widget =>
                         <li className="list-group-item" key={widget.id}>
                             {
-                                widget.type.toUpperCase() !== "PARAGRAPH" &&
+                                (widget.type.toUpperCase() !== "PARAGRAPH" &&
+                                    widget.type.toUpperCase() !== "LIST" &&
+                                    widget.type.toUpperCase() !== "IMAGE")  &&
                                 <HeadingWidget
                                     widget={widget}
                                     deleteWidget={deleteWidget}
@@ -64,6 +73,26 @@ const WidgetList = (
                             {
                                 widget.type.toUpperCase() === "PARAGRAPH" &&
                                 <ParagraphWidget
+                                    widget={widget}
+                                    deleteWidget={deleteWidget}
+                                    updateWidget={updateWidget}
+                                    editingWid={editingWidget.id}
+                                    setEditing={setEditingWidget}
+                                />
+                            }
+                            {
+                                widget.type.toUpperCase() === "LIST" &&
+                                <ListWidget
+                                    widget={widget}
+                                    deleteWidget={deleteWidget}
+                                    updateWidget={updateWidget}
+                                    editingWid={editingWidget.id}
+                                    setEditing={setEditingWidget}
+                                />
+                            }
+                            {
+                                widget.type.toUpperCase() === "IMAGE" &&
+                                <ImageWidget
                                     widget={widget}
                                     deleteWidget={deleteWidget}
                                     updateWidget={updateWidget}
