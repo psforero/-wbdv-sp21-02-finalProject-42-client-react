@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Link, useParams, useHistory} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import quizzesService from '../../services/quiz-service'
 import {connect} from "react-redux";
 
