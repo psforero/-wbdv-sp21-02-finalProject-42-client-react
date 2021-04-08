@@ -73,6 +73,9 @@ const CourseCard = (
                             !editing &&
                                 <div>
                                     <h4 className="card-title">{course.title}</h4>
+                                    <Link to={`/courses/${course._id}/quizzes`}>
+                                        Quizzes
+                                    </Link>
                                     <p className="card-text">{course.desc}</p>
                                 </div>
                         }
