@@ -64,6 +64,11 @@ const CourseRow = (
             </td>
             <td className="d-none d-lg-table-cell">{lastModified}</td>
             <td>
+                <Link to={`/courses/${course._id}/quizzes`}>
+                    Quizzes
+                </Link>
+            </td>
+            <td>
                 <div className="form-row float-right">
                     <div className="col-auto">
                         {editing && <i onClick={() => (deleteCourse(course), setEditing(false))} className="fas fa-times wbdv-color-danger"></i>}
