@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Link, Route} from "react-router-dom";
 import Profile from "./profile-page";
+import SearchScreen from "../search-screen/search-screen";
 
 const Students = (
     {
@@ -34,6 +35,9 @@ const Students = (
                     <div className="col-10">
                         <Route path="/students/profile">
                             <Profile/>
+                        </Route>
+                        <Route path='/students/records'>
+                            <SearchScreen/>
                         </Route>
                     </div>
                 </div>
