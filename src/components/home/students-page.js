@@ -36,7 +36,7 @@ const Students = (
                         <Route path="/students/profile">
                             <Profile/>
                         </Route>
-                        <Route path='/students/records'>
+                        <Route path="/students/records">
                             <SearchScreen/>
                         </Route>
                     </div>
