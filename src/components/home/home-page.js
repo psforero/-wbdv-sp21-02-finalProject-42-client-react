@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Link, Route} from "react-router-dom";
+import {Link, Route} from 'react-router-dom';
 import BarChart from "../charts/bar-chart";
 import {combineReducers, createStore} from "redux";
 import scoreReducer from "../../reducers/scores-reducer";
