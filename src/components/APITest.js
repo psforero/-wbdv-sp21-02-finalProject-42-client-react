@@ -9,7 +9,7 @@ const APITest = () => {
   const [grades, setGrades] = useState([])
   const [checkins, setCheckins] = useState([])
   const [spreadsheetAdvisories, setSpreadsheetAdvisories] = useState([])
-  const [spreadsheetData, setSpreadsheetData] = useState([])
+  const [spreadsheetData, setSpreadsheetData] = useState({values:[]})
 
   useEffect(() => {
     spreadsheetService.getAdvisors()
