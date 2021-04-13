@@ -80,3 +80,10 @@ h1{
 .nav-link.active a {
   color: black;
 }
+
+.wbdv-banner-image {
+  width: 100%;
+  background-image: url(https://www.elgincounty.ca/wp-content/uploads/2019/08/Back-to-School-Banner-Website-Banner-.png);
+  height: 450px;
+  background-position: center;
+}
