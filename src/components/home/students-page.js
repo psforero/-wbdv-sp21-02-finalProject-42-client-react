@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import {Link, Route} from "react-router-dom";
-import Profile from "./profile-page";
+import Profile from "../users/profile-page";
 import SearchScreen from "../search-screen/search-screen";
+import DetailsScreen from "../student-detail/details-screen";
 
 const Students = (
     {
-        logged
+        logged,
+        student
     }
 ) => {
     const [activeTab, setActiveTab] = useState('Records')
@@ -17,27 +19,27 @@ const Students = (
                     <div className="col-2">
                         <ul className="nav flex-column nav-pills me-3">
                             <li className="nav-item">
-                                <Link onClick={()=> setActiveTab('Records')}
-                                      className={`nav-link ${activeTab=='Records'?'active':''}`}
-                                      to='/students/records'>
-                                    Records
+                                <Link onClick={()=> setActiveTab('Profile')}
+                                      className={`nav-link ${activeTab=='Profile'?'active':''}`}
+                                      to='/profile/details'>
+                                    Details
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link onClick={()=> setActiveTab('Profile')}
-                                      className={`nav-link ${activeTab=='Profile'?'active':''}`}
-                                      to='/students/profile'>
-                                    Profile
+                                <Link onClick={()=> setActiveTab('Search')}
+                                      className={`nav-link ${activeTab=='Search'?'active':''}`}
+                                      to='/profile/search'>
+                                    Search
                                 </Link>
                             </li>
                         </ul>
                     </div>
                     <div className="col-10">
-                        <Route path="/students/profile">
-                            <Profile/>
-                        </Route>
-                        <Route path="/students/records">
+                        <Route path="/profile/search" >
                             <SearchScreen/>
+                        </Route>
+                        <Route path="/profile/details" >
+                            <DetailsScreen student={student}/>
                         </Route>
                     </div>
                 </div>

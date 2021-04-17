@@ -1,14 +1,39 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useState} from "react";
+import {Link, useHistory} from "react-router-dom";
+import userService from '../../services/user-service'
 
 const Register= (
     {
         setTab
     }
 ) => {
+    const [credentials, setCredentials] = useState({username:'', password: ''})
+    const [match, setMatch] = useState(true)
+    const history = useHistory()
+    const register = () => {
+        if(match){
+            userService.register(credentials)
+                .then((user) => {
+                    console.log(user)
+                    if(user === 0){
+                        alert("user already exits")
+                    }else{
+                        history.push("/profile")
+                    }
+                })
+        }else{
+            alert("Password field does not match verify password field")
+        }
+    }
+    const verifyMatch = (verify) => {
+        if (verify != credentials.password){
+            setMatch(false)
+        }
+        else{setMatch(true)}
+    }
     return (
         <div>
-            <h1>Sign Up</h1>
+            <h1>Register Account</h1>
 
             <div className="mb-3 row">
                 <label htmlFor="username"
@@ -16,10 +41,12 @@ const Register= (
                     Username
                 </label>
                 <div className="col-sm-10">
-                    <input type="text"
+                    <input value={credentials.username}
+                           onChange={(e) =>
+                        setCredentials({...credentials, username: e.target.value})}
+                           type="text"
                            placeholder="johnny"
                            title="Please type your username"
-                           value="alice"
                            className="form-control"
                            id="username"/>
                 </div>
@@ -60,7 +87,10 @@ const Register= (
                     Password
                 </label>
                 <div className="col-sm-10">
-                    <input type="password"
+                    <input value={credentials.password}
+                           onChange={(e) =>
+                        setCredentials({...credentials, password: e.target.value})}
+                           type="password"
                            className="form-control"
                            id="inputPassword"/>
                 </div>
@@ -68,13 +98,18 @@ const Register= (
 
             <div className="mb-3 row">
                 <label htmlFor="verifyPassword"
-                       className="col-sm-2 col-form-label">
+                       className="col-sm-2 col-form-label ">
                     Verify Password
                 </label>
                 <div className="col-sm-10">
-                    <input type="password"
-                           className="form-control"
+                    <input onChange={(e) => verifyMatch(e.target.value)}
+                           type="password"
+                           className={`form-control ${match?'':'bg-danger'}`}
                            id="verifyPassword"/>
+                    {
+                        !match &&
+                        <p>passwords do not match</p>
+                    }
                 </div>
             </div>
 
@@ -83,10 +118,10 @@ const Register= (
 
                 </label>
                 <div className="col-sm-10">
-                    <a className="btn btn-primary btn-block"
-                       href="/profile/profile.template.client.html">
-                        Sign up
-                    </a>
+                    <button onClick={register}
+                        className="btn btn-primary btn-block">
+                        Register
+                    </button>
                 </div>
             </div>
 

@@ -7,13 +7,16 @@ import {Provider} from "react-redux";
 import AboutUs from "./about-us-page";
 import Students from "./students-page";
 import StaffDirectory from "./staff-directory";
-import LogIn from "./login-page";
-import Register from "./register-page";
+import LogIn from "../users/login-page";
+import Register from "../users/register-page";
 import SearchScreen from "../search-screen/search-screen";
+import Profile from "../users/profile-page";
+import userReducer from "../../reducers/user-reducer";
 
 
 const reducer = combineReducers({
-    scoreReducer: scoreReducer
+    scoreReducer: scoreReducer,
+    userReducer: userReducer
 })
 
 const store = createStore(reducer)
@@ -111,10 +114,13 @@ export default (
                            setTab={setTab}/>
                 </Route>
                 <Route path="/register">
-                    <Register setTab={setTab}/>
+                    <Register/>
                 </Route>
                 <Route path="/search">
                     <SearchScreen/>
+                </Route>
+                <Route path="/profile">
+                    <Profile/>
                 </Route>
             </Provider>
         </div>

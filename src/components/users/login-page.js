@@ -1,25 +1,28 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import userService from "../../services/user-service";
 
 const LogIn= (
     {
-        setLog,
-        setTab,
-        users = [
-            {id: '123', user: 'ironman', email:'ironman@wblc.org'},
-            {id: '234', user: 'blackwidow', email:'blcackwidow@wblc.org'}
-        ]
+        setTab
     }
 ) => {
-    const verifyLogIn = () => {
-
+    const [credentials, setCredentials] = useState({username:'', password: ''})
+    const history = useHistory()
+    const login = () => {
+        userService.login(credentials)
+            .then((user) => {
+                console.log(user)
+                if(user === 0){
+                    alert("login failed, try again")
+                }else{
+                    history.push("/profile")
+                }
+            })
     }
-    const [username, setUsername] = useState()
-    const [password, setPassword] = useState()
     return (
         <div>
             <h1>Sign In</h1>
-
             <div className="mb-3 row">
                 <label htmlFor="username"
                        className="col-sm-2 col-form-label">
@@ -31,8 +34,9 @@ const LogIn= (
                            title="Please type your username"
                            className="form-control"
                            id="username"
+                           value={credentials.username}
                            onChange={(e) =>
-                               setUsername(e.target.value)}/>
+                               setCredentials({...credentials, username: e.target.value})}/>
                 </div>
             </div>
 
@@ -45,8 +49,9 @@ const LogIn= (
                     <input type="password"
                            className="form-control"
                            id="inputPassword"
+                           value={credentials.password}
                            onChange={(e) =>
-                               setPassword(e.target.value)}/>
+                               setCredentials({...credentials, password: e.target.value})}/>
                 </div>
             </div>
 
@@ -55,11 +60,10 @@ const LogIn= (
 
                 </label>
                 <div className="col-sm-10">
-                    <Link onClick = {()=> setLog(true)}
-                          className="btn btn-primary btn-block"
-                          to={`/students`}>
+                    <button onClick = {login}
+                          className="btn btn-primary btn-block">
                         Sign in
-                    </Link>
+                    </button>
                 </div>
             </div>
 

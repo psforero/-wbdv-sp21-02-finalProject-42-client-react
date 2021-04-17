@@ -60,12 +60,12 @@ const AdvisorySearch = (
         <>
             <Link className="btn btn-primary"
                   onClick={() => selector()}
-                  to={`/search/${advisoryToSearch}`}>
+                  to={`/profile/search/${advisoryToSearch}`}>
                 Search
             </Link>
             {
                 searchType === "Advisory" &&
-                <Route path="/search/:advisor" exact={true}>
+                <Route path="/profile/search/:advisor" exact={true}>
                     {
                         searchType === "Advisory" &&
                         <>

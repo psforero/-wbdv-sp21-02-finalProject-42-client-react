@@ -42,7 +42,7 @@ const SearchScreen = () => {
                                 searchType={searchType}/>
 
             </div>
-            <Route path="/search/:advisor/:studentName" exact={true}>
+            <Route path="/profile/search/:advisor/:studentName" exact={true}>
                 <DetailsScreen student={student}/>
             </Route>
         </Provider>

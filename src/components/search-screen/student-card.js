@@ -19,7 +19,7 @@ const StudentCard = (
                     </ul>
                     <Link className="btn btn-primary"
                           onClick={() => setStudent(row)}
-                          to={`/search/${advisor}/${row.Name}`}>
+                          to={`/profile/search/${advisor}/${row.Name}`}>
                         More Details
                     </Link>
                 </div>
