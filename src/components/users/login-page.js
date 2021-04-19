@@ -1,25 +1,27 @@
 import React, {useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import userService from "../../services/user-service";
+import {connect} from "react-redux";
 
 const LogIn= (
     {
-        setTab
+        setTab,
+        login
     }
 ) => {
     const [credentials, setCredentials] = useState({username:'', password: ''})
     const history = useHistory()
-    const login = () => {
-        userService.login(credentials)
-            .then((user) => {
-                console.log(user)
-                if(user === 0){
-                    alert("login failed, try again")
-                }else{
-                    history.push("/profile")
-                }
-            })
-    }
+    // const login = () => {
+    //     userService.login(credentials)
+    //         .then((user) => {
+    //             console.log(user)
+    //             if(user === 0){
+    //                 alert("login failed, try again")
+    //             }else{
+    //                 history.push("/profile")
+    //             }
+    //         })
+    // }
     return (
         <div>
             <h1>Sign In</h1>
@@ -60,7 +62,7 @@ const LogIn= (
 
                 </label>
                 <div className="col-sm-10">
-                    <button onClick = {login}
+                    <button onClick = {() => login(credentials, history)}
                           className="btn btn-primary btn-block">
                         Sign in
                     </button>
@@ -92,4 +94,27 @@ const LogIn= (
         </div>
     );
 }
-export default LogIn;
+
+const stpm = (state) => ({
+    user: state.userReducer.user
+})
+
+const dtpm = (dispatch) => {
+    return {
+        login: (credentials, history) =>
+            userService.login(credentials)
+                .then((user) => {
+                    if(user === 0){
+                        alert("login failed, try again")
+                    }else{
+                        dispatch({
+                            type: 'SET_CURRENT_USER',
+                            user
+                        })
+                        history.push("/profile")
+                    }
+                })
+    }
+}
+
+export default connect(stpm, dtpm) (LogIn)

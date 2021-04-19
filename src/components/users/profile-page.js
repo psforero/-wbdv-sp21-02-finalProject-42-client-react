@@ -2,8 +2,9 @@ import React, {useState, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import Students from "../home/students-page";
 import userService from '../../services/user-service'
+import {connect} from "react-redux";
 
-const Profile= () => {
+const Profile= ({user}) => {
     const history = useHistory()
     const [edit, setEdit] = useState(false)
     const logout = () => {
@@ -18,6 +19,7 @@ const Profile= () => {
     }, [])
     return (
         <div>
+            user: {JSON.stringify(user)}
             <div className="row float-right">
                 <div className="col-auto">
                     <a onClick={logout}
@@ -131,4 +133,9 @@ const Profile= () => {
         </div>
     );
 }
-export default Profile;
+
+const stpm = (state) => ({
+    user: state.userReducer.user
+})
+
+export default connect(stpm) (Profile)

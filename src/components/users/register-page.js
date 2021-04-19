@@ -1,30 +1,32 @@
 import React, {useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import userService from '../../services/user-service'
+import {connect} from "react-redux";
 
 const Register= (
     {
-        setTab
+        user,
+        setTab,
+        register
     }
 ) => {
     const [credentials, setCredentials] = useState({username:'', password: ''})
     const [match, setMatch] = useState(true)
     const history = useHistory()
-    const register = () => {
-        if(match){
-            userService.register(credentials)
-                .then((user) => {
-                    console.log(user)
-                    if(user === 0){
-                        alert("user already exits")
-                    }else{
-                        history.push("/profile")
-                    }
-                })
-        }else{
-            alert("Password field does not match verify password field")
-        }
-    }
+    // const register = () => {
+    //     if(match){
+    //         userService.register(credentials)
+    //             .then((user) => {
+    //                 if(user === 0){
+    //                     alert("user already exits")
+    //                 }else{
+    //                     history.push("/profile")
+    //                 }
+    //             })
+    //     }else{
+    //         alert("Password field does not match verify password field")
+    //     }
+    // }
     const verifyMatch = (verify) => {
         if (verify != credentials.password){
             setMatch(false)
@@ -33,8 +35,8 @@ const Register= (
     }
     return (
         <div>
+            User: {JSON.stringify(user)}
             <h1>Register Account</h1>
-
             <div className="mb-3 row">
                 <label htmlFor="username"
                        className="col-sm-2 col-form-label">
@@ -118,8 +120,9 @@ const Register= (
 
                 </label>
                 <div className="col-sm-10">
-                    <button onClick={register}
-                        className="btn btn-primary btn-block">
+                    <button onClick={() => register(credentials, history)}
+                            className="btn btn-primary btn-block"
+                            disabled={!match}>
                         Register
                     </button>
                 </div>
@@ -145,4 +148,27 @@ const Register= (
         </div>
     );
 }
-export default Register;
+
+const stpm = (state) => ({
+    user: state.userReducer.user
+})
+
+const dtpm = (dispatch) => {
+    return {
+        register: (credentials, history) =>
+            userService.register(credentials)
+                .then((user) => {
+                    if(user === 0){
+                        alert("user already exits")
+                    }else{
+                        dispatch({
+                            type: 'SET_CURRENT_USER',
+                            user
+                        })
+                        history.push("/profile")
+                    }
+                })
+    }
+}
+
+export default connect(stpm, dtpm) (Register)

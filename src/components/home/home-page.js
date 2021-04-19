@@ -52,6 +52,7 @@ export default (
                 }
             </div>
             <Provider store={store}>
+                {console.log(store.getState())}
                 <figure>
                     <div className="row justify-content-center">
                         <h1 className="justify-content-center display-1">Web Dev Learning Center</h1>
@@ -96,9 +97,6 @@ export default (
                         </div>
                         <BarChart grade={grade}/>
                     </div>
-                    <div>
-                        <h3 className="display-5">Upcoming Events</h3>
-                    </div>
                 </Route>
                 <Route path="/aboutUs" >
                     <AboutUs/>
@@ -114,13 +112,13 @@ export default (
                            setTab={setTab}/>
                 </Route>
                 <Route path="/register">
-                    <Register/>
+                    <Register setTab={setTab}/>
                 </Route>
                 <Route path="/search">
-                    <SearchScreen/>
+                    <SearchScreen setTab={setTab}/>
                 </Route>
                 <Route path="/profile">
-                    <Profile/>
+                    <Profile setTab={setTab}/>
                 </Route>
             </Provider>
         </div>
