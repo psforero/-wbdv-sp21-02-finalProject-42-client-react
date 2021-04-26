@@ -1,17 +1,17 @@
-const CHECKINS_URL = 'http://localhost:4000/api/checkins'
+const CHECKINS_URL = 'http://localhost:4000'
 
-export const findAllCheckins = () =>
-  fetch(`${CHECKINS_URL}`)
+export const getAllCheckins = () =>
+  fetch(`${CHECKINS_URL}/api/checkins`)
     .then(response => response.json())
 
-export const findCheckinsForUser = (userId, userType) => {
-  fetch(`/api/users/${userId}/checkins?type=${userType}`)
+export const getCheckinsForUser = (userId, userType) =>
+  fetch(`${CHECKINS_URL}/api/users/${userId}/checkins?type=${userType}`)
     .then(response => response.json())
-}
+
 
 const api = {
-  findAllCheckins,
-  findCheckinsForUser
+  getAllCheckins,
+  getCheckinsForUser
 }
 
 export default api

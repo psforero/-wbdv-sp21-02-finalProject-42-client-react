@@ -64,15 +64,15 @@ const APIsDemo = () => {
       })
   }
 
-  const getAllCheckins = () => {
-    checkinsService.findAllCheckins()
+  const getCheckinsForUser = (userId, userType) => {
+    checkinsService.getCheckinsForUser(userId, userType)
       .then((checkins) => {
         setCheckins(checkins)
       })
   }
 
-  const getCheckinsForUser = (userId, userType) => {
-    checkinsService.findCheckinsForUser(userId, userType)
+  const getAllCheckins = () => {
+    checkinsService.getAllCheckins()
       .then((checkins) => {
         setCheckins(checkins)
       })
@@ -148,8 +148,14 @@ const APIsDemo = () => {
       <p>*** the format of the date may change. Right now it is a plain string - should be a JS
         Date</p>
       <h2>Checkins</h2>
-      <button className='btn btn-primary' onClick={() => getAllCheckins()}>Get all checkins</button>
-      <button className='btn btn-primary' onClick={() => getCheckinsForUser('6074787405f4893fc060adea', 'STUDENT')}>Get all checkins</button>
+      <button className='btn btn-primary'
+              onClick={() => getAllCheckins()}>
+        Get all checkins
+      </button>
+      <button className='btn btn-primary'
+              onClick={() => getCheckinsForUser('6074787405f4893fc060adea', 'STUDENT')}>
+        Get Checkins for
+      </button>
       <table className='table table-bordered'>
         <tr>
           <th>By teacher id</th>

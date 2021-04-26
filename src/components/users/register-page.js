@@ -9,7 +9,13 @@ const Register = (
     setTab
   }
 ) => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [credentials, setCredentials] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    type: 'STUDENT',
+    username: '',
+    password: '' })
   const [match, setMatch] = useState(true)
   const history = useHistory()
 
@@ -24,6 +30,40 @@ const Register = (
     <div>
       <h1>Register Account</h1>
       <div className="mb-3 row">
+        <label htmlFor="firstName"
+               className="col-sm-2 col-form-label">
+          First name
+        </label>
+        <div className="col-sm-10">
+          <input value={credentials.firstName}
+                 onChange={(e) =>
+                   setCredentials({ ...credentials, firstName: e.target.value })}
+                 type="text"
+                 placeholder="John"
+                 title="Please type your first name"
+                 className="form-control"
+                 id="firstName"/>
+        </div>
+      </div>
+
+      <div className="mb-3 row">
+        <label htmlFor="lastName"
+               className="col-sm-2 col-form-label">
+          Last name
+        </label>
+        <div className="col-sm-10">
+          <input value={credentials.lastName}
+                 onChange={(e) =>
+                   setCredentials({ ...credentials, lastName: e.target.value })}
+                 type="text"
+                 placeholder="Smith"
+                 title="Please type your last name"
+                 className="form-control"
+                 id="lastName"/>
+        </div>
+      </div>
+
+      <div className="mb-3 row">
         <label htmlFor="username"
                className="col-sm-2 col-form-label">
           Username
@@ -33,7 +73,7 @@ const Register = (
                  onChange={(e) =>
                    setCredentials({ ...credentials, username: e.target.value })}
                  type="text"
-                 placeholder="johnny"
+                 placeholder="john123"
                  title="Please type your username"
                  className="form-control"
                  id="username"/>
@@ -46,13 +86,16 @@ const Register = (
           Email
         </label>
         <div className="col-sm-10">
-          <input type="email"
-                 placeholder="alice@wonderland.com"
+          <input value={credentials.email}
+                 onChange={(e) =>
+                   setCredentials({ ...credentials, email: e.target.value })}
+                 type="text"
+                 placeholder="js@email.com"
+                 title="Please type your email"
                  className="form-control"
                  id="email"/>
         </div>
       </div>
-
 
       <div className="mb-3 row">
         <label htmlFor="role"

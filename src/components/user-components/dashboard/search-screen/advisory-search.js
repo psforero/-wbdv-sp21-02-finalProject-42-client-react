@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import sheetsService from '../../../../services/gsheets-service';
-import StudentCard from './student-card';
+import StudentCard from '../student-card';
 import { Link, Route } from 'react-router-dom';
 
 const AdvisorySearch = (

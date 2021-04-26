@@ -1,16 +1,16 @@
 import React from 'react';
-import WidgetCard from './widget-card';
+import WidgetCard from '../student-detail/widget-card';
 
-const CheckingCard = ({item}) => {
+const CheckinCard = ({checkin}) => {
     return (
         <div className="border rounded border-3">
-            <h6>{item.date}</h6>
-            <p>{item.text}</p>
+            <h6>{checkin.date}</h6>
+            <p>{checkin.content}</p>
             {
-                item.widgets.map(widget => {
+                checkin.items.map(item => {
                     return (
                         <>
-                            <WidgetCard widget={widget}/>
+                            <WidgetCard item={item}/>
                             <br/>
                         </>
                     )
@@ -20,4 +20,4 @@ const CheckingCard = ({item}) => {
     );
 }
 
-export default CheckingCard;
+export default CheckinCard;
