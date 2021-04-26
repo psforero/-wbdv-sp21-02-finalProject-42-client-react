@@ -4,19 +4,51 @@ import gradesService from '../services/grades-service'
 import checkinsService from '../services/checkins-service'
 import spreadsheetService from '../services/spreadsheet-service'
 
-const APITest = () => {
+const APIsDemo = () => {
   const [users, setUsers] = useState([])
   const [grades, setGrades] = useState([])
   const [checkins, setCheckins] = useState([])
   const [spreadsheetAdvisories, setSpreadsheetAdvisories] = useState([])
-  const [spreadsheetData, setSpreadsheetData] = useState({values:[]})
+  const [spreadsheetData, setSpreadsheetData] = useState({ values: [] })
+  const [advisory, setAdvisory] = useState('')
+  const [departments, setDepartments] = useState([])
+  const [students, setStudents] = useState([])
 
   useEffect(() => {
     spreadsheetService.getAdvisors()
       .then((advisories) => {
         setSpreadsheetAdvisories(advisories.values)
       })
-  }, [])
+
+    setDepartments([...new Set(spreadsheetData.values[0])])
+
+    spreadsheetData.values.forEach((row, rowIndex) => {
+      if (rowIndex !== 0) {
+        let student = {
+          grades: []
+        }
+        row.forEach((col, colIndex) => {
+          let grade = {}
+          if (colIndex === 0) {
+            student.lastName = col
+          } else if (colIndex === 1) {
+            student.firstName = col
+          } else if (colIndex < departments.length) {
+            grade.grade = parseInt(col)
+            grade.department = departments[colIndex]
+            grade.title = row[colIndex + departments.length - 2]
+            student.grades.push(grade)
+          }
+        })
+        students.push(student)
+      }
+    })
+
+  }, [spreadsheetData])
+
+  useEffect(() => {
+    setStudents([])
+  }, [advisory])
 
   const getAllUsers = () => {
     usersService.findAllUsers()
@@ -34,6 +66,13 @@ const APITest = () => {
 
   const getAllCheckins = () => {
     checkinsService.findAllCheckins()
+      .then((checkins) => {
+        setCheckins(checkins)
+      })
+  }
+
+  const getCheckinsForUser = (userId, userType) => {
+    checkinsService.findCheckinsForUser(userId, userType)
       .then((checkins) => {
         setCheckins(checkins)
       })
@@ -109,7 +148,8 @@ const APITest = () => {
       <p>*** the format of the date may change. Right now it is a plain string - should be a JS
         Date</p>
       <h2>Checkins</h2>
-      <button className='btn btn-primary' onClick={getAllCheckins}>Get all checkins</button>
+      <button className='btn btn-primary' onClick={() => getAllCheckins()}>Get all checkins</button>
+      <button className='btn btn-primary' onClick={() => getCheckinsForUser('6074787405f4893fc060adea', 'STUDENT')}>Get all checkins</button>
       <table className='table table-bordered'>
         <tr>
           <th>By teacher id</th>
@@ -156,25 +196,112 @@ const APITest = () => {
       <ul>
         {
           spreadsheetAdvisories.map((advisoryName, index) => {
-            if (index !== 0) // the first item is the top row, which contains the data title
-              return (
-                <li>{advisoryName}
-                  <button className='btn btn-info' onClick={() => getAdvisoryData(advisoryName)}>get</button>
-                </li>
-              )
+            return (
+              <li>{advisoryName}
+                <button className='btn btn-info'
+                        onClick={() => {
+                          getAdvisoryData(advisoryName)
+                          setAdvisory(advisoryName)
+                        }
+                        }>get
+                </button>
+              </li>
+            )
           })
         }
       </ul>
-      <h5>Too lazy to format this</h5>
-      {
-        spreadsheetData.values.map(data => {
-          return (
-            <p>{data}</p>
-          )
-        })
-      }
+
+      <br/>
+
+      <br/>
+      <p>{JSON.stringify(departments)}</p>
+
+      <ul>
+        {
+          students.map((student) => {
+            return (
+              <>
+                <li>{student.lastName}, {student.firstName}</li>
+                <ul>
+                  {
+                    student.grades.map((grade) => {
+                      return (
+                        <li>Class: {grade.title} | Department: {grade.department} |
+                          Grade: {grade.grade}</li>
+                      )
+                    })
+                  }
+                </ul>
+              </>
+            )
+          })
+        }
+      </ul>
+
+      <br/>
+
+
+      <h5>Advisory: {advisory[0]}, {advisory[1]}</h5>
+      <table className='table table-hover'>
+        <thead>
+        <tr>
+          {
+            departments.map((department) => {
+              return (
+                <th scope="col">{department}</th>
+              )
+            })
+          }
+        </tr>
+        </thead>
+        <tbody>
+        {
+          students.map((student) => {
+            return (
+              <tr>
+                <td>{student.lastName}</td>
+                <td>{student.firstName}</td>
+                {
+                  student.grades.map((grade) => {
+                    return (
+                      <td
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title={grade.title}>
+                        {grade.grade}
+                      </td>
+                    )
+                  })
+                }
+              </tr>
+            )
+          })
+        }
+        </tbody>
+      </table>
+
+
     </>
   )
 }
 
-export default APITest
+export default APIsDemo
+
+// STUDENTS TABLE FROM SPREADSHEET
+// <table className='table table-hover'>
+//   {
+//     spreadsheetData.values.map((row, rowIndex) => {
+//       return (
+//         <tr>
+//           {
+//             row.map((col, colIndex) => {
+//               return (
+//                 rowIndex === 0 ? <th>{col}</th> : <td>{col}</td>
+//               )
+//             })
+//           }
+//         </tr>
+//       )
+//     })
+//   }
+// </table>

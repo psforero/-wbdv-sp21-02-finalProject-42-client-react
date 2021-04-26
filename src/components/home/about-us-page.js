@@ -1,76 +1,77 @@
-import React from "react";
+import React from 'react';
 
 const AboutUs = () => {
-    return (
-        <div>
-            <h1>About Us</h1>
-            <h2>Our Community, Our School</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                Aenean commodo ligula eget dolor. Aenean massa.
-                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-                Nulla consequat massa quis enim.
-                Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-                Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.
-                Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.
-                Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
-                Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet.
-                Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero,
-                sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar,
-                hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.
-                Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-                Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
-                Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
-                quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam,
-                scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies
-                mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et
-                ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu.
-                Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris.
-                Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing.
-                Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestibulum volutpat pretium libero.
-                Cras id dui. Aenean ut eros et nisl sagittis vestibulum. Nullam nulla eros, ultricies sit amet,
-                nonummy id, imperdiet feugiat, pede. Sed lectus. Donec mollis hendrerit risus. Phasellus nec sem in
-                justo pellentesque facilisis. Etiam imperdiet imperdiet orci. Nunc nec neque. Phasellus leo dolor, tempus
-                non, auctor et, hendrerit quis, nisi. Curabitur ligula sapien, tincidunt non, euismod vitae,
-                posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa. Sed cursus turpis vitae tortor.
-                Donec posuere vulputate arcu. Phasellus accumsan cursus velit. Vestibulum ante ipsum primis
-                in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue,
-                elit erat euismod orci, ac placerat dolor lectus quis orci. Phasellus consectetuer vestibulum elit.
-                Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Vestibulum fringilla pede sit amet augue.
-            </p>
-            <h2>Our Students</h2>
-            <p>
-                With approximately 900 enrolled students, the population of Salem High School represents a diverse array of ethnic, cultural and socioeconomic backgrounds.
-            </p>
-            <div className="row">
-                <div className="col">
-                    <ul>
-                        <li>46% Hispanic</li>
-                        <li>5% African American</li>
-                        <li>41% White</li>
-                        <li>3% Asian</li>
-                    </ul>
-                </div>
-                <div className="col">
-                    <li>12% English Language Learnersc</li>
-                    <li>23% Students with Disabilities</li>
-                    <li>37% First Language not English</li>
-                    <li>47% Economically Disadvantaged</li>
-                </div>
-            </div>
-            <h2>Curriculum</h2>
-            <p>
-                WBLC's students participate in a demanding college preparatory curriculum.
-                There is a broad selection of courses at varying instructional levels to meet the needs and abilities of all students.
-                Students are fully scheduled and receive 1,100 hours of classroom instruction per year.
-                Students typically enroll in 8 year-long courses that meet for nearly 90 minutes every other day.
-                Additional supports and accommodations provided as necessary for English language learners and students with disabilities.
-            </p>
-        </div>
-    );
+  return (
+    <div>
+      <div>
+        <h1>A data tool for teachers and students</h1>
+        <p>
+          DaViz is a student data visualization tool that allows teachers and students to analyze
+          academic data in a simple and quick way. It uses Google Sheets, a tool that most teachers
+          already use, as a data input mechanism and provides a quick and efficient visualization of
+          that data. It also provides a message-board that allows teachers to communicate with
+          students and with other colleagues. This results in a centralized location for data and
+          student communication that teachers can use to aid their students in their academic
+          endeavors.
+        </p>
+      </div>
+      <div>
+        <h2>The issue</h2>
+        <p>
+          Most schools use a combination of software to keep track of student data. Many of these
+          tools are admin-facing, meaning that they are intended for school administrators and
+          inside
+          use. Students and teachers don’t have a lot of options that allow them to communicate,
+          analyze, and visualize student data at a glance, in fact, most tools present the data only
+          as tables.
+        </p>
+        <p>
+          Teachers need to understand and communicate student progress to colleagues,
+          administrators,
+          students, and families, however, many don't have the technical knowledge or time to
+          implement data visualization methods to analyze data at different levels (classroom,
+          department, grade level).
+        </p>
+        <p>
+          The difficulty with providing such a service is that different schools have different
+          organizational structures: homerooms, advisories, emphases, concentrations... Larger
+          data management tools can only provide schools with a limited amount of customization,
+          which
+          doesn't always align with the schools' specific structure.
+        </p>
+      </div>
+      <div>
+        <h2>The solution</h2>
+        <p>
+          Most schools already use Google Sheets as a way of tracking many types of data (student,
+          schedules, grade level trackers, etc.), which means that most teachers are proficient at
+          using this service as a data input portal. DaViz gives the school the flexibility of
+          entering student data in a set of Google Sheets in a way that fits their organizational
+          structure and then presents it back to admins, teachers, and students in a way that is
+          simple, usable, and effective.
+        </p>
+      </div>
+      <div>
+        <h2>The result</h2>
+        <h3>For Students</h3>
+        <p>
+          A student can log into their account and see their own current data as well as their
+          progress over time. Additionally, they are able to see messages and reminders left by
+          their
+          teachers.
+        </p>
+        <h3>For Teachers</h3>
+        <p>
+          Teachers are able to see all data for any student or grouped by advisory/homeroom,
+          class, department, or the entire school. They can also create check-ins, events, and
+          to-do's
+          for students.
+        </p>
+        <h3>For Admins</h3>
+        <p>Admins have all the tools available for teachers plus the ability to generate and manage
+          additional accounts.</p>
+      </div>
+    </div>
+  );
 }
 export default AboutUs;

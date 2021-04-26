@@ -1,12 +1,17 @@
-const CHECKINS_URL = 'http://localhost:4000/api/checkins' // this may be a bad REST url. Only for testing
+const CHECKINS_URL = 'http://localhost:4000/api/checkins'
 
 export const findAllCheckins = () =>
   fetch(`${CHECKINS_URL}`)
     .then(response => response.json())
 
+export const findCheckinsForUser = (userId, userType) => {
+  fetch(`/api/users/${userId}/checkins?type=${userType}`)
+    .then(response => response.json())
+}
 
 const api = {
   findAllCheckins,
+  findCheckinsForUser
 }
 
 export default api

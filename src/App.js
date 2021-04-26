@@ -1,15 +1,48 @@
-import {BrowserRouter, Route} from "react-router-dom";
-import Home from "./components/home/home-page"
+import React, { useState } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { combineReducers, createStore } from 'redux';
+import userReducer from './reducers/user-reducer';
+import { Provider } from 'react-redux';
+
+import Navbar from './components/home/navbar';
+import Home from './components/home/home-page'
+import Dashboard from './components/user-components/dashboard/dashboard-page';
+import Profile from './components/user-components/profile-page';
+import Directory from './components/user-components/directory';
+import APIsDemo from './components/APIsDemo';
+
+const reducer = combineReducers({
+  userReducer: userReducer
+})
+
+const store = createStore(reducer)
 
 function App() {
+  const [tab, setTab] = useState('Home')
   return (
-      <BrowserRouter>
-          <div className="container-fluid">
-              <Route path="/">
-                  <Home/>
-              </Route>
-          </div>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Provider store={store}>
+        <div className="container-fluid">
+          <Navbar tab={tab} setTab={setTab}/>
+          <Route path="/">
+            <Home tab={tab} setTab={setTab}/>
+          </Route>
+
+          <Route path="/profile">
+            <Profile/>
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard/>
+          </Route>
+          <Route path="/directory">
+            <Directory/>
+          </Route>
+          <Route path="/demo">
+            <APIsDemo/>
+          </Route>
+        </div>
+      </Provider>
+    </BrowserRouter>
   );
 }
 

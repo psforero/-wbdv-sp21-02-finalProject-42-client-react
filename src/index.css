@@ -83,7 +83,9 @@ h1{
 
 .wbdv-banner-image {
   width: 100%;
-  background-image: url(https://www.elgincounty.ca/wp-content/uploads/2019/08/Back-to-School-Banner-Website-Banner-.png);
   height: 450px;
+  border-radius: 8px;
+  background-image: url(https://mydmi.imgix.net/v3blog/8-Ways-to-Extract-Value-from-Customer-Data---Blog.jpg?crop=edges&fit=crop&fm=jpg&h=1260&ixlib=php-3.3.0&q=40&w=2400&s=d297d5c1eebba8cbdddd58f997c3a732);
+  background-size: cover;
   background-position: center;
 }

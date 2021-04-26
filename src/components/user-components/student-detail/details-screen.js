@@ -2,9 +2,9 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import CheckingCard from './checkin-card';
 import WidgetCard from './widget-card';
-import ClassGradesBarChart from "../charts/class-grades-bar-chart";
-import ClassGradesLineChart from "../charts/class-grades-line-chart";
-import GeneralScoreChart from "../charts/general-score-chart";
+import ClassGradesBarChart from "../../charts/class-grades-bar-chart";
+import ClassGradesLineChart from "../../charts/class-grades-line-chart";
+import GeneralScoreChart from "../../charts/general-score-chart";
 
 
 const eventsAndTasks = [
@@ -74,7 +74,7 @@ const DetailsScreen = ({ student }) => {
       <div>
         <div className="row">
           <div className="col-2">
-            <h2>{student.Name}</h2>
+            <h2>{student.firstName} {student.lastName}</h2>
             <img
                 src="https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?k=6&m=1223671392&s=612x612&w=0&h=NGxdexflb9EyQchqjQP0m6wYucJBYLfu46KCLNMHZYM="
                 alt="Profile"
@@ -82,10 +82,10 @@ const DetailsScreen = ({ student }) => {
                 height="150"/>
             <ul className="list-group">
               <li className="list-group-item">
-                Grade: 12
+                Email: {student.email}
               </li>
               <li className="list-group-item">
-                Advisor: {advisor}
+                Advisor: {student.advisor}
               </li>
             </ul>
           </div>
