@@ -1,7 +1,7 @@
 const initialState = {
     advisories: [],
-    rowsObj: [],
-    students: []
+    studentData: [],
+    offerings: []
 }
 
 const advisoryReducer = (state=initialState, action) => {
@@ -23,7 +23,7 @@ const advisoryReducer = (state=initialState, action) => {
             //console.log(state.students)
             return {
                 ...state,
-                students: action.students
+                studentData: action.studentData
             }
         default:
             return state

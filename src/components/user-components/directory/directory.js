@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import usersService from '../../../services/users-service';
 
-const Directory = (
-  {
-    directory = [
-      { lastName: 'Abbot', firstName: 'Robin', title: 'Teacher', email: 'rabbott@wblc.org' },
-      { lastName: 'Alfred', firstName: 'Joseph', title: 'Teacher', email: 'jalfred@wblc.org' },
-      { lastName: 'Alterman', firstName: 'Sharon', title: 'Teacher', email: 'salterman@wblc.org' },
-      { lastName: 'Anglin', firstName: 'Rachel', title: 'ELL Teacher', email: 'ranglin@wblc.org' }
-    ]
+const Directory = () => {
+  const [directory, setDirectory] = useState([])
+
+  useEffect(()  => {
+    getUsers()
+  }, [])
+
+  const getUsers = async () => {
+    const directory = await usersService.findAllUsers()
+    setDirectory(directory.filter(account => account.type !== 'STUDENT'))
+
   }
-) => {
+
   return (
     <div>
       <h1>Directory</h1>
@@ -29,7 +33,7 @@ const Directory = (
               <div className="col-md-8">
                 <div className="card-body">
                   <h5 className="card-title">{staff.lastName}, {staff.firstName}</h5>
-                  <p className="card-text">{staff.title}</p>
+                  <p className="card-text">{staff.type}</p>
                   <a className="fas fa-envelope fa-2x"> {staff.email}</a>
                 </div>
               </div>

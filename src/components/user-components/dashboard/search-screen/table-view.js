@@ -3,20 +3,20 @@ import spreadsheetService from '../../../../services/spreadsheet-service'
 
 const TableView = () => {
   const [spreadsheetAdvisories, setSpreadsheetAdvisories] = useState([])
-  const [spreadsheetData, setSpreadsheetData] = useState({ values: [] })
+  const [spreadsheetData, setSpreadsheetData] = useState([])
   const [advisory, setAdvisory] = useState('')
-  const [departments, setDepartments] = useState([])
+  const [fields, setFields] = useState([])
   const [students, setStudents] = useState([])
 
   useEffect(() => {
     spreadsheetService.getAdvisors()
       .then((advisories) => {
-        setSpreadsheetAdvisories(advisories.values)
+        setSpreadsheetAdvisories(advisories)
       })
 
-    setDepartments([...new Set(spreadsheetData.values[0])])
+    setFields([...new Set(spreadsheetData[0])])
 
-    spreadsheetData.values.forEach((row, rowIndex) => {
+    spreadsheetData.forEach((row, rowIndex) => {
       if (rowIndex !== 0) {
         let student = {
           grades: []
@@ -27,10 +27,10 @@ const TableView = () => {
             student.lastName = col
           } else if (colIndex === 1) {
             student.firstName = col
-          } else if (colIndex < departments.length) {
+          } else if (colIndex < fields.length) {
             grade.grade = parseInt(col)
-            grade.department = departments[colIndex]
-            grade.title = row[colIndex + departments.length - 2]
+            grade.department = fields[colIndex]
+            grade.title = row[colIndex + fields.length - 2]
             student.grades.push(grade)
           }
         })
@@ -39,16 +39,15 @@ const TableView = () => {
     })
   }, [spreadsheetData])
 
-  useEffect(() => {
-    setStudents([])
-  }, [advisory])
-
   const getAdvisoryData = (advisorName) => {
     spreadsheetService.getAdvisoryData(advisorName[0])
       .then((advisoryData) => {
         setSpreadsheetData(advisoryData)
       })
   }
+  useEffect(() => {
+    setStudents([])
+  }, [advisory])
 
   return (
     <>
@@ -67,7 +66,8 @@ const TableView = () => {
                           getAdvisoryData(advisoryName)
                           setAdvisory(advisoryName)
                         }
-                        }>get
+                        }>
+                  get
                 </button>
               </li>
             )
@@ -105,7 +105,7 @@ const TableView = () => {
         <thead>
         <tr>
           {
-            departments.map((department) => {
+            fields.map((department) => {
               return (
                 <th scope="col">{department}</th>
               )

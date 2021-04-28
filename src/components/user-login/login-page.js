@@ -103,8 +103,8 @@ const dtpm = (dispatch) => {
               type: 'SET_CURRENT_USER',
               user: response[0]
             })
-            history.push('/profile')
-            setTab('profile')
+            history.push('/dashboard')
+            setTab('Dashboard')
           }
         })
   }

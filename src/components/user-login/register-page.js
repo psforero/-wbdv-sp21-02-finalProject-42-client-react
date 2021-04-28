@@ -13,9 +13,10 @@ const Register = (
     firstName: '',
     lastName: '',
     email: '',
-    type: 'STUDENT',
+    type: '',
     username: '',
-    password: '' })
+    password: ''
+  })
   const [match, setMatch] = useState(true)
   const history = useHistory()
 
@@ -26,6 +27,17 @@ const Register = (
       setMatch(true)
     }
   }
+
+  const handleRegister = () => {
+    let valid = Object.keys(credentials).every(field => credentials[field] !== '')
+
+    if (valid) {
+      register(credentials, history, setTab)
+    } else {
+      alert('Please fill out all fields')
+    }
+  }
+
   return (
     <div>
       <h1>Register Account</h1>
@@ -104,10 +116,14 @@ const Register = (
         </label>
         <div className="col-sm-10">
           <select id="role"
-                  className="form-control">
-            <option>Staff</option>
-            <option>Student</option>
-            <option>Admin</option>
+                  className="form-control"
+                  value={credentials.type}
+                  onChange={(e) =>
+                    setCredentials({ ...credentials, type: e.target.value })}>
+            <option disabled value={''}>Select one</option>
+            <option value="STUDENT">Student</option>
+            <option value="STAFF">Staff</option>
+            <option value="ADMIN">Admin</option>
           </select>
         </div>
       </div>
@@ -144,12 +160,14 @@ const Register = (
         </div>
       </div>
 
+      <p>{JSON.stringify(credentials)}</p>
+
       <div className="mb-3 row">
         <label className="col-sm-2 col-form-label">
 
         </label>
         <div className="col-sm-10">
-          <button onClick={() => register(credentials, history, setTab)}
+          <button onClick={() => handleRegister()}
                   className="btn btn-primary btn-block"
                   disabled={!match}>
             Register
@@ -184,7 +202,7 @@ const stpm = (state) => ({
 
 const dtpm = (dispatch) => {
   return {
-    register: (credentials, history, setTab) =>
+    register: async (credentials, history, setTab) =>
       userService.register(credentials)
         .then((user) => {
           if (user === 0) {
@@ -194,7 +212,8 @@ const dtpm = (dispatch) => {
               type: 'SET_CURRENT_USER',
               user
             })
-            history.push('/profile')
+            setTab('Dashboard')
+            history.push('/dashboard')
           }
         })
   }

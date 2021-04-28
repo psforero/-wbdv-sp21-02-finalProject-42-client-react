@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link, Route } from 'react-router-dom';
 import AboutUs from './about-us-page';
-import LogIn from '../users/login-page';
-import Register from '../users/register-page';
+import LogIn from '../user-login/login-page';
+import Register from '../user-login/register-page';
 import Join from './join-page';
 import Contact from './contact-page';
 import Navbar from './navbar';

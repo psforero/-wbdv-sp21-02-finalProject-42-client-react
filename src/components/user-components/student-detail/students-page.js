@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Route } from 'react-router-dom';
-import Profile from '../profile-page';
+import Profile from '../profile/profile-page';
 import SearchScreen from '../dashboard/search-screen/search-screen';
 import DetailsScreen from './details-screen';
 

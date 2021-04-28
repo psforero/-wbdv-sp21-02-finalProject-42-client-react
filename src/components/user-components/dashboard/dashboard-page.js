@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import DetailsScreen from '../student-detail/details-screen';
-import SearchScreen from './search-screen/search-screen';
 import TableView from './search-screen/table-view';
+import SearchScreen from './search-screen/search-screen';
+import { Route } from 'react-router-dom';
 
 const Dashboard = (
   {
@@ -17,17 +18,16 @@ const Dashboard = (
       }
       {
         user.type !== 'STUDENT' &&
-        <TableView/>
-        // <SearchScreen/>
+        <SearchScreen/>
       }
     </>
   )
 }
 
 const stpm = (state) => (
-  {
-    user: state.userReducer.user
-  }
+{
+  user: state.userReducer.user
+}
 )
 
 export default connect(stpm)(Dashboard)

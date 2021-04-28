@@ -9,7 +9,7 @@ const Navbar = ({ user, logout, tab, setTab }) => {
   }
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <nav className="navbar navbar-expand-md navbar-light bg-light sticky-top row">
         <Link onClick={() => setTab('Home')}
               className={`navbar-brand ${tab === 'Home' ? 'active' : ''}`}
               to="/">
@@ -24,7 +24,7 @@ const Navbar = ({ user, logout, tab, setTab }) => {
                 aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"/>
         </button>
-        <div className="collapse navbar-collapse" id="navbarCollapse">
+        <div className="collapse navbar-collapse" id="navbarCollapse col-8">
           <ul className="navbar-nav nav-pills nav-fill">
             <li className={`nav-item ${tab === 'AboutUs' ? 'active' : ''}`}>
               <Link onClick={() => setTab('AboutUs')}
@@ -49,25 +49,35 @@ const Navbar = ({ user, logout, tab, setTab }) => {
             </li>
           </ul>
         </div>
-        <div>
-          {
-            user === undefined &&
-            <Link onClick={() => setTab('')}
-                  to="/login">
-              <i className="fas fa-user align-middle my-2 my-sm-0">
-                Sign In
-              </i>
-            </Link>
-          }
-          {
-            user &&
-            <Link onClick={() => handleLogout()}
-                  to="/">
-              <i className="fas fa-user align-middle my-2 my-sm-0">
-                Sign Out
-              </i>
-            </Link>
-          }
+        <div className="col-4">
+          <div className="row">
+            {
+              user === undefined &&
+              <>
+                <div className="col"/>
+                <Link onClick={() => setTab('')}
+                      to="/login">
+                  <i className="fas fa-user my-2 my-sm-0">
+                    Sign In
+                  </i>
+                </Link>
+              </>
+            }
+            {
+              user &&
+              <>
+                <div className="col">
+                  <span className="navbar-text"> Welcome {user.firstName}!</span>
+                </div>
+                <Link onClick={() => handleLogout()}
+                      to="/">
+                  <i className="fas fa-user align-bottom my-2 my-sm-0">
+                    Logout
+                  </i>
+                </Link>
+              </>
+            }
+          </div>
         </div>
       </nav>
       {
@@ -84,9 +94,9 @@ const Navbar = ({ user, logout, tab, setTab }) => {
                   to="/profile">Profile</Link>
           </li>
           <li className="nav-item">
-            <Link onClick={() => setTab('Admin')}
-                  className={`nav-link ${tab === 'Students' ? 'active' : ''}`}
-                  to="/admin">Admin</Link>
+            <Link onClick={() => setTab('Tools')}
+                  className={`nav-link ${tab === 'Tools' ? 'active' : ''}`}
+                  to="/tools">Tools</Link>
           </li>
           <li className="nav-item">
             <Link onClick={() => setTab('Directory')}

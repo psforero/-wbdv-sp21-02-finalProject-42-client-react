@@ -4,13 +4,6 @@ export const findAllUsers = () =>
   fetch(`${USERS_URL}`)
     .then(response => response.json())
 
-const profile = () => {
-  return fetch(`${USERS_URL}/profile`, {
-    method: 'POST',
-    credentials: 'include'
-  }).then(response => response.json())
-}
-
 const register = (credentials) => {
   return fetch(`${USERS_URL}/register`, {
     method: 'POST',
@@ -35,15 +28,35 @@ const login = (credentials) => {
     .then(response => response.json())
 }
 
-const logout = () => {
+const updateUser = (user) => {
+  return fetch(`${USERS_URL}/${user._id}`, {
+    method: 'PUT',
+    credentials: 'include',
+    body: JSON.stringify((user)),
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+}
+
+const initializeUserDatabase = () => {
+  return fetch(`${USERS_URL}/initialize`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => response.json())
 }
 
 const api = {
   findAllUsers,
   register,
   login,
-  logout,
-  profile
+  updateUser,
+  initializeUserDatabase,
 }
 
 export default api
