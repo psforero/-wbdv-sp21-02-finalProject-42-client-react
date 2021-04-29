@@ -12,14 +12,12 @@ import TableView from './table-view';
 const SearchScreen = () => {
   const [searchType, setSearchType] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
-  const [student, setStudent] = useState(null)
+  const [student, setStudent] = useState('')
   const [groupSearch, setGroupSearch] = useState([])
-
-  const [exists, setExists] = useState(false);
-  const [selectedStudent, setSelectedStudent] = useState(null)
 
   const handleSearchSelection = (value) => {
     setSearchType(value)
+    setSearchTerm('')
     switch (value) {
       case 'advisory':
         spreadsheetService.getAdvisors()
@@ -45,14 +43,6 @@ const SearchScreen = () => {
         console.log('default')
         setGroupSearch([])
         setSearchType('')
-    }
-  }
-
-  const selector = () => {
-    if (searchType === 'Advisory') {
-      return true//checkIfExists()
-    } else {
-      return false//checkStudent()
     }
   }
 
@@ -98,7 +88,9 @@ const SearchScreen = () => {
                   {
                     groupSearch.map((item) => {
                       return (
-                        <option value={item}>{item}</option>
+                        <option>
+                          {item}
+                        </option>
                       )
                     })
                   }
@@ -117,8 +109,7 @@ const SearchScreen = () => {
               </label>
               <div className="col-sm-10">
                 <Link className="btn btn-primary"
-                      onClick={() => selector()}
-                      to={`/dashboard/search/asdfdsa`}>
+                      to={`/dashboard/${searchType}/${searchTerm}`}>
                   Load!
                 </Link>
               </div>
@@ -152,8 +143,7 @@ const SearchScreen = () => {
               </label>
               <div className="col-sm-10">
                 <Link className="btn btn-primary"
-                      onClick={() => selector()}
-                      to={`/dashboard/search/${student}`}>
+                      to={`/dashboard/student/${student}`}>
                   Find!
                 </Link>
               </div>

@@ -12,6 +12,10 @@ export const getAdvisoryData = (advisory) =>
   fetch(`${SHEET_URL}/data/${advisory}`)
     .then(response => response.json())
 
+export const getFields = () =>
+  fetch(`${SHEET_URL}/fields`)
+  .then(response => response.json())
+
 export const getClasses = () =>
   fetch(`${SHEET_URL}/classes`)
     .then(response => response.json())
@@ -25,7 +29,8 @@ const api = {
   getAdvisors,
   getAdvisoryData,
   getClasses,
-  getDepartments
+  getDepartments,
+  getFields
 }
 
 export default api
@@ -37,3 +42,4 @@ export default api
 // app.get('/api/spreadsheet/advisors', getAdvisors)
 // app.get('/api/spreadsheet/classes', getClasses)
 // app.get('/api/spreadsheet/departments', getDepartments)
+// app.get('/api/spreadsheet/fields', getFields)
