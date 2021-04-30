@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import advisoryReducer from '../../../../reducers/spreadsheet-reducer';
-import { combineReducers, createStore } from 'redux';
-import { connect, Provider } from 'react-redux';
-import AdvisorySearch from './advisory-search';
 import { Link, Route } from 'react-router-dom';
-import DetailsScreen from '../../student-detail/details-screen';
-import spreadsheetService from '../../../../services/spreadsheet-service';
-import StudentCard from '../student-card';
-import TableView from './table-view';
 
-const SearchScreen = () => {
+const SearchScreen = (
+  {
+    advisories,
+    departments,
+    classes
+  }
+) => {
   const [searchType, setSearchType] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [student, setStudent] = useState('')
@@ -20,27 +18,19 @@ const SearchScreen = () => {
     setSearchTerm('')
     switch (value) {
       case 'advisory':
-        spreadsheetService.getAdvisors()
-          .then((advisories) => {
-            setGroupSearch(advisories)
-          })
-        setSearchType(value)
+        setGroupSearch(advisories)
         break
       case 'class':
-        spreadsheetService.getClasses()
-          .then((classes) => {
-            setGroupSearch(classes.reduce((a, b) => a.concat(b), []))
-          })
-        setSearchType(value)
+        setGroupSearch(classes)
         break
       case 'department':
-        spreadsheetService.getDepartments()
-          .then((departments) => {
-            setGroupSearch(departments.reduce((a, b) => a.concat(b), []))
-          })
+        setGroupSearch(departments)
+        break
+      case 'all':
+        setGroupSearch([])
+        setSearchTerm('all')
         break
       default:
-        console.log('default')
         setGroupSearch([])
         setSearchType('')
     }
@@ -66,13 +56,14 @@ const SearchScreen = () => {
               <option value="advisory">Advisory</option>
               <option value="class">Class</option>
               <option value="department">Department</option>
+              <option value="all">All</option>
             </select>
           </div>
         </div>
         {
-          searchType &&
+          searchType && searchTerm !== 'all' &&
           <>
-            <div className="mb-3 row">
+             <div className="mb-3 row">
               <label htmlFor="searchGroup"
                      className="col-sm-2 col-form-label">
                 Select {searchType}
@@ -109,7 +100,7 @@ const SearchScreen = () => {
               </label>
               <div className="col-sm-10">
                 <Link className="btn btn-primary"
-                      to={`/dashboard/${searchType}/${searchTerm}`}>
+                      to={`/dashboard/group/${searchType}/${searchTerm}`}>
                   Load!
                 </Link>
               </div>

@@ -4,6 +4,18 @@ export const findAllUsers = () =>
   fetch(`${USERS_URL}`)
     .then(response => response.json())
 
+const findUserByName = (name) => {
+  return fetch(`${USERS_URL}/byName`, {
+    method: 'POST',
+    credentials: 'include',
+    body: JSON.stringify(name),
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+}
+
 const register = (credentials) => {
   return fetch(`${USERS_URL}/register`, {
     method: 'POST',
@@ -53,6 +65,7 @@ const initializeUserDatabase = () => {
 
 const api = {
   findAllUsers,
+  findUserByName,
   register,
   login,
   updateUser,
@@ -63,6 +76,7 @@ export default api
 
 // users ROUTES FROM API
 // app.get('/api/users', findAllUsers)
+// app.get('/api/users/:lastFirst', findUserByName)
 // app.get('/api/users/:userId', findUserById)
 // app.get('/api/users/:userId/advisory', findAdvisoryForTeacher)
 // app.post('/api/users', createUser)

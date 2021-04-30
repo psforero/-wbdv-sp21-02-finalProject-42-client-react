@@ -93,11 +93,14 @@ const Navbar = ({ user, logout, tab, setTab }) => {
                   className={`nav-link ${tab === 'Profile' ? 'active' : ''}`}
                   to="/profile">Profile</Link>
           </li>
-          <li className="nav-item">
+          {
+            user.type !== 'STUDENT' &&
+            <li className="nav-item">
             <Link onClick={() => setTab('Tools')}
-                  className={`nav-link ${tab === 'Tools' ? 'active' : ''}`}
-                  to="/tools">Tools</Link>
-          </li>
+            className={`nav-link ${tab === 'Tools' ? 'active' : ''}`}
+            to="/tools">Tools</Link>
+            </li>
+          }
           <li className="nav-item">
             <Link onClick={() => setTab('Directory')}
                   className={`nav-link ${tab === 'Directory' ? 'active' : ''}`}

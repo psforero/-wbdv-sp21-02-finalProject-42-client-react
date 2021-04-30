@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { combineReducers, createStore } from 'redux';
 import userReducer from './reducers/user-reducer';
 import spreadsheetReducer from './reducers/spreadsheet-reducer';
+import checkinReducer from './reducers/spreadsheet-reducer';
 import { Provider } from 'react-redux';
 
 import Navbar from './components/home/navbar';
@@ -15,10 +16,10 @@ import Tools from './components/user-components/Tools/tools-page';
 import APIsDemo from './components/APIsDemo';
 
 
-
 const reducer = combineReducers({
   userReducer: userReducer,
-  spreadsheetReducer: spreadsheetReducer
+  spreadsheetReducer: spreadsheetReducer,
+  checkinReducer: checkinReducer
 })
 
 const store = createStore(reducer)

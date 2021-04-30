@@ -35,19 +35,13 @@ const renderActiveShape = (props) => {
     );
 };
 
-export default class GeneralScoreChart extends PureComponent {
+export default class AverageScoreChart extends PureComponent {
     constructor(props) {
         super(props);
         this.sum = 0;
-        this.totalClasses = 0;
-        for (let subjectName in props.student) {
-            if (subjectName !== 'Name' &&
-                subjectName !== '_sheet' &&
-                subjectName !== '_rowNumber' &&
-                subjectName !== '_rawData') { // THIS IS REALLY BAD!!!! AND PROBABLY NEEDS TO BE MOVED TO A REDUCER
-                this.sum += parseInt(props.student[subjectName]);
-                this.totalClasses += 1;
-            }
+        this.totalClasses = props.student.grades.length;
+        for (let grade of props.student.grades) {
+            this.sum += grade.grade
         }
 
         this.average = Math.trunc(this.sum / this.totalClasses);

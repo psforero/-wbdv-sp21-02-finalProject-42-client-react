@@ -13,23 +13,18 @@ export default class ClassGradesBarChart extends PureComponent {
   constructor(props) {
     super(props)
     this.data = []
-    for (let subjectName in props.student) {
-      if (subjectName !== 'Name' &&
-        subjectName !== '_sheet' &&
-        subjectName !== '_rowNumber' &&
-        subjectName !== '_rawData') { // THIS IS REALLY BAD!!!!
-        let classAndGrade = { name: subjectName, grade: parseInt(props.student[subjectName]) }
-        this.data.push(classAndGrade)
-      }
+    for (let grade of props.student.grades) {
+      this.data.push({
+        grade: grade.grade,
+        class: grade.title
+      })
     }
   }
 
   render() {
     return (
-      <ResponsiveContainer width="100%" height="85%">
+      <ResponsiveContainer width="100%" height="90%">
         <BarChart
-          width={500}
-          height={300}
           data={this.data}
           margin={{
             top: 5,
@@ -37,10 +32,11 @@ export default class ClassGradesBarChart extends PureComponent {
             left: 20,
             bottom: 5,
           }}
+          barSize={50}
         >
           <CartesianGrid strokeDasharray="3 3"/>
-          <XAxis dataKey="name"/>
-          <YAxis/>
+          <XAxis dataKey="class"/>
+          <YAxis type="number" domain={[0, 100]}/>
           <Tooltip/>
           <Bar dataKey="grade" fill="#8884d8"/>
         </BarChart>

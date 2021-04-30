@@ -1,38 +1,73 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import DetailsScreen from '../student-detail/details-screen';
-import TableView from './search-screen/table-view';
 import SearchScreen from './search-screen/search-screen';
-import { Route } from 'react-router-dom';
-import DataCompile from './search-screen/data-compile';
+import { Route, useParams } from 'react-router-dom';
+import spreadsheetService from '../../../services/spreadsheet-service';
+import TableView from './search-screen/table-view';
+import DetailsScreenTeacherView from '../student-detail/details-screen-teacher-view';
+
 
 const Dashboard = (
   {
-    user
+    user,
+    studentData,
+    advisories,
+    departments,
+    classes,
+    loadData
   }
 ) => {
+  useEffect(() => {
+    loadData()
+  }, [])
+
+
   return (
     <>
       {
-        user.type === 'STUDENT' &&
-        <DetailsScreen student={user}/>
-      }
-      {
-        user.type !== 'STUDENT' &&
-        <SearchScreen/>
+        studentData.length !== 0 &&
+        <>
+          <br/>
+          <button className='btn btn-success fas fa-sync-alt'
+                  onClick={() => loadData()}>
+            Reload data
+          </button>
+          {
+            user.type === 'STUDENT' &&
+            <DetailsScreen
+              user={user}
+              individualData={studentData.find(student => {
+                return student.firstName === user.firstName && student.lastName === user.lastName
+              })}/>
+          }
+          {
+            user.type !== 'STUDENT' &&
+            <>
+              <SearchScreen advisories={advisories} classes={classes} departments={departments}/>
+            </>
+          }
+        </>
       }
 
       <Route
         path={[
-          '/dashboard/:group/:searchTerm',
+          '/dashboard/group/:group/:searchTerm',
         ]}
         exact={true}
         render={() =>
-          <DataCompile/>}>
+          <TableView studentData={studentData} departments={departments}/>}>
       </Route>
 
-      <Route path="/dashboard/student">
-        <DetailsScreen student={user}/>
+      <Route
+        path={[
+          '/dashboard/student/:lastName/:firstName',
+        ]}
+        exact={true}
+        render={() =>
+          <DetailsScreenTeacherView
+            user={user}
+            studentData={studentData}/>}>
       </Route>
     </>
   )
@@ -40,9 +75,29 @@ const Dashboard = (
 
 const stpm = (state) => (
   {
+    studentData: state.spreadsheetReducer.studentData,
+    advisories: state.spreadsheetReducer.advisories,
+    departments: state.spreadsheetReducer.departments,
+    classes: state.spreadsheetReducer.classes,
     user: state.userReducer.user
   }
 )
 
-export default connect(stpm)(Dashboard)
+const dtpm = (dispatch) => {
+  return {
+    loadData: () =>
+      spreadsheetService.getAllData()
+        .then((response) => {
+          dispatch({
+            type: 'SET_DATA',
+            studentData: response.studentData,
+            advisories: response.advisories,
+            departments: response.departments,
+            classes: response.classes
+          })
+        })
+  }
+}
+
+export default connect(stpm, dtpm)(Dashboard)
 

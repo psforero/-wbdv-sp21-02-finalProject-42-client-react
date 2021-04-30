@@ -1,13 +1,18 @@
 const initialState = {
-  studentData: []
+  studentData: [],
+  advisories: [],
+  departments: [],
+  classes: []
 }
 
 const spreadsheetReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_STUDENT_DATA':
+    case "SET_DATA":
       return {
-        ...state,
-        advisories: action.advisories
+        studentData: action.studentData,
+        advisories: action.advisories,
+        departments: action.departments,
+        classes: action.classes
       }
     default:
       return state

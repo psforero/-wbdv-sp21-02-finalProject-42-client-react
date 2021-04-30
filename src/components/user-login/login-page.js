@@ -6,8 +6,7 @@ import userService from '../../services/users-service';
 const LogIn = (
   {
     setTab,
-    login,
-    user
+    login
   }
 ) => {
   const [credentials, setCredentials] = useState({ username: '', password: '' })
@@ -16,7 +15,6 @@ const LogIn = (
   return (
     <div>
       <h1>Sign In</h1>
-      <p>{JSON.stringify(user)}</p>
       <div className="mb-3 row">
         <label htmlFor="username"
                className="col-sm-2 col-form-label">
@@ -84,7 +82,7 @@ const LogIn = (
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 const stpm = (state) => ({
@@ -103,8 +101,8 @@ const dtpm = (dispatch) => {
               type: 'SET_CURRENT_USER',
               user: response[0]
             })
-            history.push('/dashboard')
             setTab('Dashboard')
+            history.push('/dashboard')
           }
         })
   }
