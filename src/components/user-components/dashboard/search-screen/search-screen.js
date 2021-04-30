@@ -134,7 +134,7 @@ const SearchScreen = (
               </label>
               <div className="col-sm-10">
                 <Link className="btn btn-primary"
-                      to={`/dashboard/student/${student}`}>
+                      to={`/dashboard/student/search/${student}`}>
                   Find!
                 </Link>
               </div>

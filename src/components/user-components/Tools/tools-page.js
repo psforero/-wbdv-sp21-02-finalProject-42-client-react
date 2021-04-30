@@ -22,13 +22,13 @@ const Tools = ({ user }) => {
                 Accounts
               </Link>
             </li>
-            <li className="nav-item">
-              <Link onClick={() => setActiveTab('Data')}
-                    className={`nav-link ${activeTab === 'Data' ? 'active' : ''}`}
-                    to='/tools/data'>
-                Data
-              </Link>
-            </li>
+            {/*<li className="nav-item">*/}
+            {/*  <Link onClick={() => setActiveTab('Data')}*/}
+            {/*        className={`nav-link ${activeTab === 'Data' ? 'active' : ''}`}*/}
+            {/*        to='/tools/data'>*/}
+            {/*    Data*/}
+            {/*  </Link>*/}
+            {/*</li>*/}
             {
               user.type === 'ADMIN' &&
               <li className="nav-item">

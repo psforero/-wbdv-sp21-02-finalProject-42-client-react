@@ -2,10 +2,12 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import DetailsScreen from '../student-detail/details-screen';
 import SearchScreen from './search-screen/search-screen';
-import { Route, useParams } from 'react-router-dom';
-import spreadsheetService from '../../../services/spreadsheet-service';
 import TableView from './search-screen/table-view';
 import DetailsScreenTeacherView from '../student-detail/details-screen-teacher-view';
+import StudentSearchResult from './search-screen/student-search-result';
+import { Route, useParams } from 'react-router-dom';
+import spreadsheetService from '../../../services/spreadsheet-service';
+
 
 
 const Dashboard = (
@@ -69,6 +71,16 @@ const Dashboard = (
             user={user}
             studentData={studentData}/>}>
       </Route>
+
+      <Route
+        path={[
+          '/dashboard/student/search/:searchName',
+        ]}
+        exact={true}
+        render={() =>
+          <StudentSearchResult studentData={studentData} departments={departments}/>}>
+      </Route>
+
     </>
   )
 }

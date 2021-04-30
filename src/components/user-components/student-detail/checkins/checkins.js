@@ -5,6 +5,7 @@ import WidgetCard from './widget-card'
 import checkinsService from '../../../../services/checkins-service'
 
 const Checkins = ({
+                    user,
                     student,
                     checkins = [],
                     findCheckinsForStudent,
@@ -14,91 +15,78 @@ const Checkins = ({
                   }) => {
 
   const [editCheckin, setEditCheckin] = useState({})
+  const [events, setEvents] = useState([])
 
   useEffect(() => {
-    findCheckinsForStudent(student._id);
     setEditCheckin({})
-  }, [findCheckinsForStudent, student]);
+    findCheckinsForStudent(student._id);
+  }, []);
+
+  useEffect(() => {
+    const totalEvents = []
+    checkins.forEach(checkin => {
+      checkin.items.forEach(item => {
+        totalEvents.push(item)
+      })
+    })
+    setEvents(totalEvents)
+  }, [checkins])
 
   return (
     <div>
-      <i className="fas fa-plus fa-2x float-right"
-         onClick={() => createCheckin(student._id)}/>
       <h3>Checkins ({checkins.length})</h3>
-
-      <ul className="list-group">
+      <>
         {
-          checkins.map((checkin, index) =>
-            <li className="list-group-item">
-              {
-                editCheckin._id !== checkin._id &&
-                <i className="fas fa-cog fa-lg float-right"
-                   onClick={() => setEditCheckin(checkin)}/>
-              }
-              <CheckinCard checkin={checkin}
-                           editing={checkin._id === editCheckin._id}
-                           updateCheckin={updateCheckin}
-                           deleteCheckin={deleteCheckin}
-                           setEditCheckin={setEditCheckin}/>
-            </li>
-          )
-        }
-      </ul>
-    </div>
+          user.type !== 'STUDENT' &&
+          <button className="btn btn-success fas fa-lg fa-plus"
+                  onClick={() => createCheckin(student._id, user._id)}>Create new</button>
 
-    // <div className="row">
-    //   <div className="col-8">
-    //     <div className="row">
-    //       <div className="col-8">
-    //         <h4>Check-ins</h4>
-    //       </div>
-    //
-    //       <button className='btn btn-primary float-right'>Create new checkin</button>
-    //     </div>
-    //     {
-    //       checkins.length === 0 &&
-    //       <p>This student has no checkins</p>
-    //     }
-    //
-    //     <ul className="list-group">
-    //       {
-    //         checkins.map(checkin => {
-    //           return (
-    //             <>
-    //               <CheckinCard checkin={checkin}/>
-    //               <br/>
-    //             </>
-    //           )
-    //         })
-    //       }
-    //     </ul>
-    //   </div>
-    //   <div className="col-4">
-    //     <h4>Events and Tasks</h4>
-    //     <ul className="list-group">
-    //       {
-    //         checkins.map((checkin) => {
-    //           return (
-    //             checkin.items.map(item => {
-    //               return (
-    //                 <>
-    //                   <WidgetCard item={item}/>
-    //                   <br/>
-    //                 </>
-    //               )
-    //             })
-    //           )
-    //         })
-    //       }
-    //     </ul>
-    //   </div>
-    // </div>
+        }
+      </>
+
+      <div className="row">
+        <div className="col-8">
+          <h4>Check-ins</h4>
+          <div className="row">
+            {
+              checkins.map(checkin => {
+                return (
+                  <div className="card col-12">
+                    <CheckinCard checkin={checkin}
+                                 editing={checkin._id === editCheckin._id}
+                                 updateCheckin={updateCheckin}
+                                 deleteCheckin={deleteCheckin}
+                                 setEditCheckin={setEditCheckin}/>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>
+        <div className="col-4">
+          <h4>Events and Task</h4>
+          <ul className="list-group">
+            {
+              events.map(widget => {
+                return (
+                  <li className="list-group-item">
+                    <WidgetCard widget={widget}/>
+                    <br/>
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
   )
 }
 
 const stpm = (state) => {
   return {
-    checkins: state.checkinReducer.checkins
+    checkins: state.checkinReducer.checkins,
+    user: state.userReducer.user
   }
 }
 
@@ -111,15 +99,15 @@ const dtpm = (dispatch) => {
           checkins: checkins
         }));
     },
-    createCheckin: (studentId) => {
-      checkinsService.createCheckin(studentId)
+    createCheckin: (studentId, teacherId) => {
+      checkinsService.createCheckin(studentId, teacherId)
         .then(checkinCreated => dispatch({
           type: 'CREATE_CHECKIN',
           checkin: checkinCreated
         }));
     },
     deleteCheckin: (checkin, setEditWidget) => {
-      checkinsService.deleteCheckin(checkin.id)
+      checkinsService.deleteCheckin(checkin._id)
         .then(response => dispatch({
           type: 'DELETE_CHECKIN',
           checkin: checkin
@@ -128,7 +116,7 @@ const dtpm = (dispatch) => {
     },
     updateCheckin: (checkin, setEditWidget) => {
       checkinsService.updateCheckin(checkin)
-        .then(response => dispatch({
+        .then(checkin => dispatch({
           type: 'UPDATE_CHECKIN',
           checkin: checkin
         }));

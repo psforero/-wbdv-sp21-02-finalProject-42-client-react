@@ -1,22 +1,24 @@
-const CHECKINS_URL = 'http://localhost:4000'
+const CHECKINS_URL = 'http://localhost:4000/api'
 
 export const getAllCheckins = () =>
-  fetch(`${CHECKINS_URL}/api/checkins`)
+  fetch(`${CHECKINS_URL}/checkins`)
     .then(response => response.json())
 
 export const getCheckinById = (checkinId) =>
-  fetch(`${CHECKINS_URL}/api/checkins/${checkinId}`)
+  fetch(`${CHECKINS_URL}/checkins/${checkinId}`)
     .then(response => response.json())
 
-export const getCheckinsForUser = (userId, userType) =>
-  fetch(`${CHECKINS_URL}/api/users/${userId}/checkins?type=${userType}`)
+export const getCheckinsForUser = (userId, userType) => {
+  return (
+  fetch(`${CHECKINS_URL}/users/${userId}/checkins?type=${userType}`)
     .then(response => response.json())
+  )
+}
 
-export const createCheckin = (studentId, checkin) =>
-  fetch(`${CHECKINS_URL}/users/${studentId}/checkins`, {
+export const createCheckin = (studentId, teacherId) =>
+  fetch(`${CHECKINS_URL}/users/${studentId}/checkins/${teacherId}`, {
     method: 'POST',
     credentials: 'include',
-    body: JSON.stringify(checkin),
     headers: {
       'content-type': 'application/json'
     }
@@ -28,14 +30,17 @@ export const deleteCheckin = (checkinId) =>
     method: 'DELETE',
   });
 
-export const updateCheckin = (checkin) =>
-  fetch(`${CHECKINS_URL}/checkins/${checkin.id}`, {
+export const updateCheckin = (checkin) => {
+  return fetch(`${CHECKINS_URL}/checkins/${checkin._id}`, {
     method: 'PUT',
-    body: JSON.stringify(checkin),
+    credentials: 'include',
+    body: JSON.stringify((checkin)),
     headers: {
       'content-type': 'application/json'
     }
-  });
+  })
+    .then(response => response.json())
+}
 const api = {
   getAllCheckins,
   getCheckinsForUser,

@@ -121,8 +121,6 @@ const TableView = ({ studentData, departments }) => {
         </div>
       </div>
 
-
-
       <table className='table table-hover'>
         <thead>
         <tr>

@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { combineReducers, createStore } from 'redux';
 import userReducer from './reducers/user-reducer';
 import spreadsheetReducer from './reducers/spreadsheet-reducer';
-import checkinReducer from './reducers/spreadsheet-reducer';
+import CheckinReducer from './reducers/checkins-reducer';
 import { Provider } from 'react-redux';
 
 import Navbar from './components/home/navbar';
@@ -19,7 +19,7 @@ import APIsDemo from './components/APIsDemo';
 const reducer = combineReducers({
   userReducer: userReducer,
   spreadsheetReducer: spreadsheetReducer,
-  checkinReducer: checkinReducer
+  checkinReducer: CheckinReducer
 })
 
 const store = createStore(reducer)

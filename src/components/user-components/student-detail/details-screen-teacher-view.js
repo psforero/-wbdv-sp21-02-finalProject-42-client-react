@@ -22,7 +22,7 @@ const DetailsScreenTeacherView = ({ user, studentData }) => {
       .then((user) => {
         setStudent(user[0])
       })
-  }, [student])
+  }, [])
 
   return (
     student !== undefined &&
